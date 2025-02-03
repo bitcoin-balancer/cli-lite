@@ -1,6 +1,6 @@
 {
   "name": "cli-lite",
-  "description": "",
+  "description": "The cli-lite is a lightweight yet powerful command-line interface designed to make managing Balancer's infrastructure effortless, even for non-technical users.",
   "private": false,
   "version": "1.0.0",
   "type": "module",
