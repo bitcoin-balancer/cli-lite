@@ -1,0 +1,34 @@
+{
+  "name": "cli-lite",
+  "description": "",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitcoin-balancer/cli-lite.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "trading",
+    "bitcoin-trading",
+    "strategy",
+    "trading-strategy",
+    "bitcoin-trading-strategy",
+    "spot",
+    "spot-market",
+    "bitcoin-spot-market",
+    "automated",
+    "self-hosted"
+  ],
+  "author": "Jesus Graterol",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bitcoin-balancer/cli-lite/issues"
+  },
+  "homepage": "https://github.com/bitcoin-balancer/cli-lite#readme"
+}
