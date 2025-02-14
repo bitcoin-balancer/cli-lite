@@ -91,9 +91,6 @@ npm run test:integration
 
 # run the unit tests
 npm run test:unit
-
-# run the benchmarks
-npm run test:bench
 ```
 
 

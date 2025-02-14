@@ -46,5 +46,13 @@
     "ts-lib-builder": "^1.0.5",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
+    "fs-utils-sync": "^1.0.3",
+    "generate-password": "^1.7.1",
+    "otplib": "^12.0.1",
+    "web-utils-kit": "^1.0.5",
+    "zod": "^3.24.2"
   }
 }
