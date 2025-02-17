@@ -5,7 +5,7 @@
 ...
 
 
-Install `nvm`:
+Install `nvm` and activate the version v22.11.0 of Node.js:
 
 ...
 
