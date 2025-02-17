@@ -12,6 +12,12 @@
 type IExecutionMode = 'overlapped' | 'inherit' | 'pipe' | 'ignore';
 
 /**
+ * Execution Return Data
+ * Utility helper to get the return data based on the execution mode.
+ */
+type IExecutionReturnData<T> = T extends 'pipe' ? string : undefined;
+
+/**
  * Execution Options
  * The options that will be passed to the child_process.
  */
@@ -22,10 +28,13 @@ type IExectutionOptions = {
 
 
 
+
+
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export type {
   IExecutionMode,
+  IExecutionReturnData,
   IExectutionOptions,
 };

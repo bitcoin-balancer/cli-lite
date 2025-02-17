@@ -18,6 +18,9 @@ import { printHeader } from './shared/print/index.js';
       '',
     );
 
+    // check if the configuration has been initialized
+    // ...
+
     // end the process successfully
     process.exit(0);
   } catch (error) {

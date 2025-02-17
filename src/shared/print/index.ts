@@ -71,7 +71,7 @@ const print = ({
  * @param version
  */
 const __printLogo = (version: string): void => {
-  const nameStr = 'BALANCER';
+  const nameStr = '₿ALANCER';
   const versionStr = `* cli-lite@v${version} *`;
   console.log('*'.repeat(versionStr.length));
   console.log(`* ${nameStr}${' '.repeat(versionStr.length - nameStr.length - 4)} *`);

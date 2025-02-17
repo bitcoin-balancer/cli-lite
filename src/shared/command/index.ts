@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/indent */
 import { spawn } from 'child_process';
-import { IExectutionOptions, IExecutionMode } from './types.js';
+import { IExecutionMode, IExecutionReturnData, IExectutionOptions } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -21,13 +22,13 @@ const __getExectutionOptions = (mode: IExecutionMode): IExectutionOptions => ({
  * @param command
  * @param args
  * @param mode?
- * @returns Promise<string | undefined>
+ * @returns Promise<T>
  */
-const execute = (
+const execute = <T extends IExecutionMode>(
   command: string,
   args: string[],
-  mode: IExecutionMode = 'inherit',
-): Promise<string | undefined> => new Promise((resolve, reject) => {
+  mode: T = 'inherit' as T,
+): Promise<IExecutionReturnData<T>> => new Promise((resolve, reject) => {
   // init the options based on the mode
   const options = __getExectutionOptions(mode);
 
@@ -60,12 +61,19 @@ const execute = (
   ls.on('close', (code) => {
     // if the process didn't exit with status 0 it was unsuccessful
     if (code === 0) {
-      resolve(data.length > 0 ? data : undefined);
+      if (mode === 'pipe') {
+        resolve(data as IExecutionReturnData<T>);
+      } else {
+        resolve(undefined as IExecutionReturnData<T>);
+      }
+      const result = data.length > 0 ? data : undefined;
+      resolve(result as IExecutionReturnData<T>);
     } else {
       reject(new Error(`The ${command} process exited with the error code: ${code}`));
     }
   });
 });
+
 
 
 
