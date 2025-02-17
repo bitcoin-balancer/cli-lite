@@ -10,8 +10,6 @@ import { authenticator } from 'otplib';
  */
 const generateOTPSecret = (): string => authenticator.generateSecret();
 
-
-
 /**
  * Generates an OTP token based on given secret.
  * @param secret

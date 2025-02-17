@@ -15,6 +15,25 @@ With its intuitive syntax and comprehensive functionality, `cli-lite` streamline
 
 <br/><br/><br/>
 
+## Usage
+
+Generate a fresh build
+```bash
+npm run build
+```
+
+Start the CLI
+```bash
+npm start
+```
+
+
+
+
+
+
+<br/><br/><br/>
+
 ## Requirements
 
 ### Software
