@@ -59,7 +59,8 @@ npm start
 
 ## Getting Started
 
-1. [Set up a DigitalOcean account](./docs/digital-ocean/index.md)
+1. [Create a DigitalOcean account](./docs/digital-ocean/index.md)
+1. [Set up a virtual machine (Droplet)](./docs/droplet/index.md)
 2. ...
 
 
