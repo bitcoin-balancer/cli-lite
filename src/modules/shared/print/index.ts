@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-console */
 import { isArrayValid, isObjectValid } from 'web-utils-kit';
 import { IPrintableData, IPrintConfig } from './types.js';
@@ -94,7 +95,7 @@ const printHeader = (
 
   print({ title: 'landscape-sysinfo:', data: landscapeSysinfo, marginTop: 1 });
 
-  print({ title: 'Docker:', data: dockerProcess, marginTop: 1 });
+  print({ title: 'Docker:', data: dockerProcess, marginTop: 1, marginBottom: 1 });
 };
 
 

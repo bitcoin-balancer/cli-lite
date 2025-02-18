@@ -4,6 +4,7 @@ import process from 'node:process';
 import { printHeader } from './modules/shared/print/index.js';
 import { HostService } from './modules/host/index.js';
 import { ConfigService } from './modules/config/index.js';
+import { displayMenu, type IDecodedMenuAction } from './modules/shared/menu/index.js';
 
 (async () => {
   try {
@@ -18,12 +19,13 @@ import { ConfigService } from './modules/config/index.js';
     );
 
     // check if the configuration requires initialization. Otherwise, display the menu
-    if (ConfigService.requiresInitialization()) {
-      // ...
-    } else {
-      // ...
+    const action: IDecodedMenuAction = ConfigService.requiresInitialization()
+      ? { id: 'init-config' }
+      : await displayMenu();
 
-    }
+    // execute the chosen action
+    const actionModule = await import(`./actions/${action.id}.js`);
+    await actionModule.default(action.variation);
 
     // end the process successfully
     process.exit(0);
