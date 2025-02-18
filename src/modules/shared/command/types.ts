@@ -15,7 +15,7 @@ type IExecutionMode = 'overlapped' | 'inherit' | 'pipe' | 'ignore';
  * Execution Return Data
  * Utility helper to get the return data based on the execution mode.
  */
-type IExecutionReturnData<T> = T extends 'pipe' ? string : undefined;
+type IExecutionReturnData<T extends IExecutionMode> = T extends 'pipe' ? string : undefined;
 
 /**
  * Execution Options

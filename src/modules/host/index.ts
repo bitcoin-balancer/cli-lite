@@ -70,6 +70,32 @@ const hostServiceFactory = (): IHostService => {
 
 
   /* **********************************************************************************************
+   *                                         CLI MANAGEMENT                                       *
+   ********************************************************************************************** */
+
+  /**
+   * Pulls the latest version of the source code from the repository.
+   * @returns Promise<void>
+   */
+  const pullSourceCode = (): Promise<void> => execute('git', ['pull', 'origin', 'main'], 'inherit');
+
+  /**
+   * Installs the dependencies of the cli-lite package.
+   * @returns Promise<void>
+   */
+  const installDependencies = (): Promise<void> => execute('npm', ['ci'], 'inherit');
+
+  /**
+   * Runs the CLI's build script.
+   * @returns Promise<void>
+   */
+  const buildCLI = (): Promise<void> => execute('npm', ['run', 'build'], 'inherit');
+
+
+
+
+
+  /* **********************************************************************************************
    *                                           INITIALIZER                                        *
    ********************************************************************************************** */
 
@@ -116,6 +142,11 @@ const hostServiceFactory = (): IHostService => {
 
     // retrievers
     // ...
+
+    // cli management
+    pullSourceCode,
+    installDependencies,
+    buildCLI,
 
     // initializer
     initialize,

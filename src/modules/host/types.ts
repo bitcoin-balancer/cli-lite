@@ -17,6 +17,11 @@ type IHostService = {
   // retrievers
   // ...
 
+  // cli management
+  pullSourceCode: () => Promise<void>;
+  installDependencies: () => Promise<void>;
+  buildCLI: () => Promise<void>;
+
   // initializer
   initialize: () => Promise<void>;
 };

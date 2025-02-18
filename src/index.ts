@@ -6,7 +6,7 @@ import process from 'node:process';
 import { printHeader } from './modules/shared/print/index.js';
 import { HostService } from './modules/host/index.js';
 import { ConfigService } from './modules/config/index.js';
-import { displayMenu, type IDecodedMenuAction } from './modules/shared/menu/index.js';
+import { displayMenu, IDecodedMenuAction } from './modules/shared/menu/index.js';
 
 /**
  * Displays the main menu and executes the chosen action.
