@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import process from 'node:process';
 import { printHeader } from './modules/shared/print/index.js';
-import { HostService } from './modules/shared/host/index.js';
+import { HostService } from './modules/host/index.js';
 import { ConfigService } from './modules/config/index.js';
 
 (async () => {

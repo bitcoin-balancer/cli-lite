@@ -1,4 +1,4 @@
-import { IPackageFile } from '../types.js';
+import { IPackageFile } from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { extractMessage } from 'error-message-utils';
-import { IPackageFile } from '../types.js';
-import { execute } from '../command/index.js';
-import { readPackageFile } from '../fs/index.js';
+import { IPackageFile } from '../shared/types.js';
+import { execute } from '../shared/command/index.js';
+import { readPackageFile } from '../shared/fs/index.js';
 import { IHostService } from './types.js';
 
 /* ************************************************************************************************
