@@ -25,6 +25,14 @@ type IPrintConfig = {
   marginBottom?: number;
 };
 
+/**
+ * Progress Printer
+ * Object in charge of logging the steps and the progress of a process.
+ */
+type IProgressPrinter = {
+  step: () => void;
+};
+
 
 
 
@@ -35,4 +43,5 @@ type IPrintConfig = {
 export type {
   IPrintableData,
   IPrintConfig,
+  IProgressPrinter,
 };

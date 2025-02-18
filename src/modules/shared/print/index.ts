@@ -1,6 +1,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-console */
 import { isArrayValid, isObjectValid } from 'web-utils-kit';
+import { progressPrinterFactory } from './progress-printer.js';
 import { IPrintableData, IPrintConfig } from './types.js';
 
 /* ************************************************************************************************
@@ -125,6 +126,10 @@ const printHeader = (
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
+  // implementation
   print,
   printHeader,
+
+  // progress printer
+  progressPrinterFactory,
 };

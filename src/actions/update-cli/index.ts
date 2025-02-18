@@ -1,4 +1,5 @@
 import { HostService } from '../../modules/host/index.js';
+import { progressPrinterFactory } from '../../modules/shared/print/progress-printer.js';
 
 /**
  * update-cli
@@ -6,17 +7,22 @@ import { HostService } from '../../modules/host/index.js';
  * it.
  */
 export default async () => {
+  const progress = progressPrinterFactory('update-cli', [
+    'Pulling source code...',
+    'Installing dependencies..',
+    'Building the CLI...',
+  ]);
+
   // pull the latest version of the source code
-  console.log('1/3) Pulling source code...');
+  progress.step();
   await HostService.pullSourceCode();
 
   // install the dependencies
-  console.log('\n\n2/3) Installing dependencies...');
+  progress.step();
   await HostService.installDependencies();
 
   // build the CLI
-  console.log('\n\n3/3) Building the CLI...');
+  progress.step();
   await HostService.buildCLI();
-
-  console.log('\n\nThe update-cli action was executed successfully!');
+  progress.step();
 };
