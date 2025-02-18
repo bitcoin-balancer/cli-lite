@@ -43,7 +43,7 @@ const main = async () => {
     let isRelaunch: boolean = false;
     while (true) {
       if (isRelaunch) {
-        console.log('\n\n\n\n\n');
+        console.log('\n\n\n');
       }
       await main();
       isRelaunch = true;
