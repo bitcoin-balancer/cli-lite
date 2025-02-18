@@ -17,8 +17,13 @@ import { ConfigService } from './modules/config/index.js';
       {},
     );
 
-    // check if the configuration has been initialized
-    // ...
+    // check if the configuration requires initialization. Otherwise, display the menu
+    if (ConfigService.requiresInitialization()) {
+      // ...
+    } else {
+      // ...
+
+    }
 
     // end the process successfully
     process.exit(0);

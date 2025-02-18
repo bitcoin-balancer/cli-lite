@@ -13,8 +13,8 @@ type IConfigService = {
   // properties
 
 
-  // retrievers
-
+  // utils
+  requiresInitialization: () => boolean;
 
   // initializer
   initialize: () => Promise<void>;

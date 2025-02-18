@@ -1,3 +1,5 @@
+import { IConfigFile } from '../shared/types.js';
+import { readConfigFile } from '../shared/fs/index.js';
 import { IConfigService } from './types.js';
 
 /* ************************************************************************************************
@@ -15,7 +17,21 @@ const configServiceFactory = (): IConfigService => {
    *                                          PROPERTIES                                          *
    ********************************************************************************************** */
 
-  // ...
+  // object containing the configuration that will be used to run Balancer
+  let __config: IConfigFile | undefined;
+
+
+
+
+  /* **********************************************************************************************
+   *                                             UTILS                                            *
+   ********************************************************************************************** */
+
+  /**
+   * Verifies if the initial configuration values must be set.
+   * @returns boolean
+   */
+  const requiresInitialization = (): boolean => __config === undefined;
 
 
 
@@ -25,10 +41,30 @@ const configServiceFactory = (): IConfigService => {
    *                                          INITIALIZER                                         *
    ********************************************************************************************** */
 
+  /**
+   * Retrieves the contents of the configuration file (if any). Returns undefined if the file
+   * doesn't exist or is broken.
+   * @returns IConfigFile | undefined
+   */
+  const __readConfigFile = (): IConfigFile | undefined => {
+    try {
+      return readConfigFile();
+    } catch (e) {
+      return undefined;
+    }
+  };
 
+  /**
+   * Initializes the essential data required by the Config Service.
+   * @returns Promise<void>
+   */
   const initialize = async (): Promise<void> => {
+    // retrieve the current config (if any)
+    __config = __readConfigFile();
+
     // ...
   };
+
 
 
 
@@ -39,6 +75,9 @@ const configServiceFactory = (): IConfigService => {
   return Object.freeze({
     // properties
     // ...
+
+    // utils
+    requiresInitialization,
 
     // initializer
     initialize,
