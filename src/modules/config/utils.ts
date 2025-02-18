@@ -1,22 +1,21 @@
-import { IDecodedMenuAction } from './types.js';
+import { IConfigFile } from '../shared/types.js';
+import { readConfigFile } from '../shared/fs/index.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
  ************************************************************************************************ */
 
 /**
- * Decodes a chosen menu action by splitting it into an id and variation. For example:
- * - decodeMenuAction('up') -> { id: 'up' }
- * - decodeMenuAction('up:test-mode') -> { id: 'up', variation: 'test-mode' }
- * @param action
- * @returns IDecodedMenuAction
+ * Retrieves the contents of the configuration file (if any). Returns undefined if the file
+ * doesn't exist or is broken.
+ * @returns IConfigFile | undefined
  */
-const decodeMenuAction = (action: string): IDecodedMenuAction => {
-  if (action.includes(':')) {
-    const split = action.split(':');
-    return { id: split[0], variation: split[1] };
+const getConfigFile = (): IConfigFile | undefined => {
+  try {
+    return readConfigFile();
+  } catch (e) {
+    return undefined;
   }
-  return { id: action };
 };
 
 
@@ -27,5 +26,5 @@ const decodeMenuAction = (action: string): IDecodedMenuAction => {
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
-  decodeMenuAction,
+  getConfigFile,
 };

@@ -14,6 +14,7 @@ import { displayMenu, type IDecodedMenuAction } from './modules/shared/menu/inde
     // print the header
     printHeader(
       HostService.packageFile.version,
+      HostService.latestVersion,
       HostService.systemInformation,
       {},
     );

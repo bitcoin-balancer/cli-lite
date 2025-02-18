@@ -81,17 +81,36 @@ const __printLogo = (version: string): void => {
 };
 
 /**
+ * Prints the update details to the console if there is one available.
+ * @param currentVersion
+ * @param latestVersion
+ */
+const __printUpdateDetails = (currentVersion: string, latestVersion: string): void => {
+  if (currentVersion !== latestVersion) {
+    print({
+      title: 'Update available:',
+      data: `To update to version v${latestVersion}, use the CLI Management action: update-cli.`,
+      marginTop: 1,
+    });
+  }
+};
+
+/**
  * Builds and prints the header of the CLI to the console.
  * @param version
+ * @param latestVersion
  * @param landscapeSysinfo
  * @param dockerProcess
  */
 const printHeader = (
   version: string,
+  latestVersion: string,
   landscapeSysinfo: string,
   dockerProcess: any,
 ): void => {
   __printLogo(version);
+
+  __printUpdateDetails(version, latestVersion);
 
   print({ title: 'landscape-sysinfo:', data: landscapeSysinfo, marginTop: 1 });
 

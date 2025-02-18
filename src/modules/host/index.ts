@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { extractMessage } from 'error-message-utils';
-import { IPackageFile } from '../shared/types.js';
+import { sendGET } from 'fetch-request-node';
+import { IPackageFile, PackageFileSchema } from '../shared/types.js';
 import { execute } from '../shared/command/index.js';
 import { readPackageFile } from '../shared/fs/index.js';
 import { IHostService } from './types.js';
@@ -22,6 +23,9 @@ const hostServiceFactory = (): IHostService => {
   // the cli-lite's package.json file
   let __packageFile: IPackageFile;
 
+  // the latest version of the cli-lite package
+  let __latestVersion: string;
+
   // the state of the host machine
   let __systemInformation: string = '';
 
@@ -41,6 +45,28 @@ const hostServiceFactory = (): IHostService => {
     execute('landscape-sysinfo', [], 'pipe')
   );
 
+  /**
+   * Retrieves the latest version of the cli-lite package from the GitHub repository.
+   * @returns Promise<string>
+   */
+  const __getLatestVersion = async (): Promise<string> => {
+    try {
+      const { data } = await sendGET<IPackageFile>(
+        'https://raw.githubusercontent.com/bitcoin-balancer/cli-lite/main/package.json',
+        {
+          requestOptions: {
+            headers: new Headers({ Accept: 'text/plain' }),
+          },
+        },
+      );
+      console.log(data);
+      return PackageFileSchema.parse(data).version;
+    } catch (e) {
+      // console.log(e);
+      return __packageFile.version;
+    }
+  };
+
 
 
 
@@ -56,6 +82,9 @@ const hostServiceFactory = (): IHostService => {
   const initialize = async (): Promise<void> => {
     // retrieve the package.json file
     __packageFile = readPackageFile();
+
+    // retrieve the latest version of the cli-lite package
+    __latestVersion = await __getLatestVersion();
 
     // retrieve the system information
     try {
@@ -79,6 +108,9 @@ const hostServiceFactory = (): IHostService => {
     // properties
     get packageFile() {
       return __packageFile;
+    },
+    get latestVersion() {
+      return __latestVersion;
     },
     get systemInformation() {
       return __systemInformation;

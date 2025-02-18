@@ -11,7 +11,8 @@ import { IPackageFile } from '../shared/types.js';
 type IHostService = {
   // properties
   packageFile: IPackageFile;
-  systemInformation: string
+  latestVersion: string;
+  systemInformation: string;
 
   // retrievers
   // ...
