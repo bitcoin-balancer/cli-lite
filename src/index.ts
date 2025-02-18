@@ -2,15 +2,18 @@
 /* eslint-disable no-console */
 import process from 'node:process';
 import { printHeader } from './shared/print/index.js';
-import { getLandscapeSysinfo } from './shared/host/index.js';
+import { HostService } from './shared/host/index.js';
 
 (async () => {
   try {
-    // ...
+    // initialize the modules
+    await Promise.all([HostService.initialize()]);
+
+    // print the header
     printHeader(
-      '1.0.0',
-      await getLandscapeSysinfo(),
-      '',
+      HostService.packageFile.version,
+      HostService.systemInformation,
+      {},
     );
 
     // check if the configuration has been initialized

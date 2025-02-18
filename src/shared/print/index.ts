@@ -88,7 +88,7 @@ const __printLogo = (version: string): void => {
 const printHeader = (
   version: string,
   landscapeSysinfo: string,
-  dockerProcess: string,
+  dockerProcess: any,
 ): void => {
   __printLogo(version);
 
