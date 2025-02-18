@@ -17,13 +17,9 @@ With its intuitive syntax and comprehensive functionality, `cli-lite` streamline
 
 ## Usage
 
-Generate a fresh build
+Navigate into `cli-lite` directory and start the program:
 ```bash
-npm run build
-```
-
-Start the CLI
-```bash
+cd cli-lite
 npm start
 ```
 

@@ -1,4 +1,4 @@
-import { readJSONFile } from 'fs-utils-sync';
+import { readJSONFile, writeJSONFile } from 'fs-utils-sync';
 import {
   PackageFileSchema,
   type IPackageFile,
@@ -52,6 +52,12 @@ const readConfigFile = (): IConfigFile => ConfigFileSchema.parse(
   readJSONFile(__CONFIG_FILE_PATH),
 );
 
+/**
+ * Writes the config object to the config.json file.
+ * @param config
+ */
+const writeConfigFile = (config: IConfigFile): void => writeJSONFile(__CONFIG_FILE_PATH, config);
+
 
 
 
@@ -65,4 +71,5 @@ export {
 
   // config file
   readConfigFile,
+  writeConfigFile,
 };
