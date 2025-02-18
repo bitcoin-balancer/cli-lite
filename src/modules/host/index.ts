@@ -59,10 +59,8 @@ const hostServiceFactory = (): IHostService => {
           },
         },
       );
-      console.log(data);
       return PackageFileSchema.parse(data).version;
     } catch (e) {
-      // console.log(e);
       return __packageFile.version;
     }
   };

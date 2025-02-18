@@ -6,7 +6,7 @@ import { Separator } from '@inquirer/prompts';
 const MENU = [
   {
     name: 'Docker',
-    description: 'Run docker compose commands in the local or remote host',
+    description: 'Run docker compose commands',
     value: [
       {
         value: 'up',
@@ -55,6 +55,11 @@ const MENU = [
       {
         value: 'prune',
         description: 'Remove all unused containers, networks and images (both dangling and unused)',
+      },
+      new Separator(),
+      {
+        value: 'restart-daemon',
+        description: 'Restart the Docker service on the host machine',
       },
     ],
   },
