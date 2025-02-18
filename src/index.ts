@@ -1,13 +1,14 @@
 #! /usr/bin/env node
 /* eslint-disable no-console */
 import process from 'node:process';
-import { printHeader } from './shared/print/index.js';
-import { HostService } from './shared/host/index.js';
+import { printHeader } from './modules/shared/print/index.js';
+import { HostService } from './modules/shared/host/index.js';
+import { ConfigService } from './modules/config/index.js';
 
 (async () => {
   try {
     // initialize the modules
-    await Promise.all([HostService.initialize()]);
+    await Promise.all([HostService.initialize(), ConfigService.initialize()]);
 
     // print the header
     printHeader(
