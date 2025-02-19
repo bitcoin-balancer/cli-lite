@@ -34,7 +34,45 @@ type IHostService = {
  *                                             TYPES                                              *
  ************************************************************************************************ */
 
-// ...
+/**
+ * Container Name
+ * The names assigned to the containers by Docker Compose.
+ */
+type IContainerName = 'balancer-postgres' | 'balancer-api' | 'balancer-gui' | 'balancer-ct';
+
+/**
+ * Container State
+ * Object containing the state of a container. If the container is not running, it will hold the
+ * latest logs.
+ */
+type IContainerState = {
+  running: boolean;
+} & (
+  | {
+    running: false;
+    logs: string;
+  }
+);
+
+/**
+ * Docker Process
+ * The current state of the Docker Process that's running on the host.
+ */
+type IDockerProcess = {
+  // true if all the containers are running
+  allRunning: boolean;
+
+  // true if all the containers are down
+  allDown: boolean;
+
+  // the containers' state
+  containers: {
+    'balancer-postgres': IContainerState;
+    'balancer-api': IContainerState;
+    'balancer-gui': IContainerState;
+    'balancer-ct'?: IContainerState;
+  }
+};
 
 
 
@@ -48,5 +86,7 @@ export type {
   IHostService,
 
   // types
-  // ...
+  IContainerName,
+  IContainerState,
+  IDockerProcess,
 };

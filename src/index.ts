@@ -14,6 +14,7 @@ import { ConfigService } from './modules/config/index.js';
 const main = async () => {
   // initialize the modules
   await Promise.all([HostService.initialize(), ConfigService.initialize()]);
+  const hasTunnelToken = ConfigService.hasTunnelToken();
 
   // print the header
   printHeader(
@@ -26,7 +27,7 @@ const main = async () => {
   // check if the configuration requires initialization. Otherwise, display the menu
   const action = ConfigService.requiresInitialization()
     ? { id: 'init-config' }
-    : await displayMenuInput(ConfigService.hasTunnelToken());
+    : await displayMenuInput(hasTunnelToken);
 
   // execute the chosen action
   const actionModule = await import(`./actions/${action.id}.js`);
