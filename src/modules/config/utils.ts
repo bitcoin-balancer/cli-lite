@@ -29,6 +29,26 @@ const getConfigFile = (): IConfigFile | undefined => {
 };
 
 /**
+ * Generates a password with a random length.
+ * @param min
+ * @param max
+ * @returns string
+ */
+const __generatePassword = (min: number, max: number): string => (
+  generatePassword(generateRandomInteger(min, max), true, true, true, true)
+);
+
+/**
+ * Generates a random sequence of characters with a random length.
+ * @param min
+ * @param max
+ * @returns string
+ */
+const __generateRandomBytes = (min: number, max: number): string => (
+  generateRandomBytes(generateRandomInteger(min, max))
+);
+
+/**
  * Builds the immutable part of the configuration file.
  * @returns IConfigFileImmutable
  */
@@ -37,21 +57,21 @@ const buildImmutableConfig = (): IConfigFileImmutable => ({
   POSTGRES_HOST,
   POSTGRES_USER,
   POSTGRES_DB,
-  POSTGRES_PASSWORD_FILE: generatePassword(generateRandomInteger(450, 550), true, true, true, true),
-  HASHING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
-  ENCRYPTING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
+  POSTGRES_PASSWORD_FILE: __generatePassword(450, 550),
+  HASHING_SECRET: __generateRandomBytes(90, 110),
+  ENCRYPTING_SECRET: __generateRandomBytes(90, 110),
   ROOT_ACCOUNT: {
     uid: generateUUID(4),
     nickname: 'root',
-    password: generatePassword(generateRandomInteger(40, 60), true, true, true, true),
+    password: __generatePassword(40, 60),
     otpSecret: generateOTPSecret(),
   },
-  ALTCHA_SECRET: generatePassword(generateRandomInteger(80, 140), true, true, true, true),
+  ALTCHA_SECRET: __generatePassword(80, 140),
   JWT_SECRET: {
-    refresh: generateRandomBytes(generateRandomInteger(90, 110)),
-    access: generateRandomBytes(generateRandomInteger(90, 110)),
+    refresh: __generateRandomBytes(90, 110),
+    access: __generateRandomBytes(90, 110),
   },
-  COOKIE_SECRET: generatePassword(generateRandomInteger(80, 140), true, true, true, true),
+  COOKIE_SECRET: __generatePassword(80, 140),
 });
 
 
