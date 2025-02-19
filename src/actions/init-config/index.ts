@@ -1,6 +1,10 @@
 import { progressPrinterFactory } from '../../modules/shared/print/progress-printer.js';
 import { print } from '../../modules/shared/print/index.js';
-import { displayGUIURLInput } from '../../modules/shared/input/index.js';
+import {
+  displayGUIURLInput,
+  displayTelegramInput,
+  displayExchangeConfigurationInput,
+} from '../../modules/shared/input/index.js';
 
 /**
  * init-config
@@ -19,4 +23,12 @@ export default async () => {
   // GUI_URL
   progress.step();
   const GUI_URL = await displayGUIURLInput();
+
+  // TELEGRAM
+  progress.step();
+  const TELEGRAM = await displayTelegramInput();
+
+  // EXCHANGE_CONFIGURATION
+  progress.step();
+  const EXCHANGE_CONFIGURATION = await displayExchangeConfigurationInput();
 };

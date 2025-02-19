@@ -2,7 +2,8 @@ import { select, input } from '@inquirer/prompts';
 import { MENU } from './constants.js';
 import { decodeMenuAction } from './utils.js';
 import { IDecodedMenuAction } from './types.js';
-import { validateURL } from './validations.js';
+import { validateTelegramChatID, validateTelegramToken, validateURL } from './validations.js';
+import { IExchangeConfiguration, ITelegramConfig } from '../types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -48,6 +49,36 @@ const displayGUIURLInput = (): Promise<string> => (
   displayURLInput('Enter the GUI\'s URL. e.g. https://balancer.jesusgraterol.dev')
 );
 
+/**
+ * Displays the TELEGRAM input prompt.
+ * @returns Promise<ITelegramConfig>
+ */
+const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
+  token: await input({
+    message: 'Enter the Telegram Bot Token',
+    validate: validateTelegramToken,
+  }),
+  chatID: Number(await input({
+    message: 'Enter the Telegram Bot Token',
+    validate: validateTelegramChatID,
+  })),
+});
+
+/**
+ * Displays the EXCHANGE_CONFIGURATION input prompt.
+ * @returns Promise<IExchangeConfiguration>
+ */
+const displayExchangeConfigurationInput = async (): Promise<IExchangeConfiguration> => ({
+  token: await input({
+    message: 'Enter the Telegram Bot Token',
+    validate: validateTelegramToken,
+  }),
+  chatID: Number(await input({
+    message: 'Enter the Telegram Bot Token',
+    validate: validateTelegramChatID,
+  })),
+});
+
 
 
 
@@ -62,4 +93,6 @@ export {
   displayMenuInput,
   displayURLInput,
   displayGUIURLInput,
+  displayTelegramInput,
+  displayExchangeConfigurationInput,
 };
