@@ -47,7 +47,7 @@ const configServiceFactory = (): IConfigService => {
    * Updates the config file with the new values.
    * @param newConfig
    */
-  const __updateConfig = (newConfig: IConfigFile): void => {
+  const __update = (newConfig: IConfigFile): void => {
     writeConfigFile(newConfig);
     __config = newConfig;
   };
@@ -56,7 +56,7 @@ const configServiceFactory = (): IConfigService => {
    * Initializes the configuration with the provided values.
    * @param config
    */
-  const initializeConfig = (config: IConfigFileMutable): void => __updateConfig({
+  const initializeConfig = (config: IConfigFileMutable): void => __update({
     ...config,
     ...buildImmutableConfig(),
   });

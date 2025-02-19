@@ -1,5 +1,9 @@
+import { generateRandomInteger, generateUUID } from 'web-utils-kit';
 import { IConfigFile, IConfigFileImmutable } from '../shared/types.js';
 import { readConfigFile } from '../shared/fs/index.js';
+import { generateOTPSecret } from '../shared/otp/index.js';
+import { generatePassword } from '../shared/password/index.js';
+import { generateRandomBytes } from '../shared/random-bytes/index.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -27,21 +31,21 @@ const buildImmutableConfig = (): IConfigFileImmutable => ({
   POSTGRES_HOST: 'postgres',
   POSTGRES_USER: 'postgres',
   POSTGRES_DB: 'postgres',
-  POSTGRES_PASSWORD_FILE: '',
-  HASHING_SECRET: '',
-  ENCRYPTING_SECRET: '',
+  POSTGRES_PASSWORD_FILE: generatePassword(generateRandomInteger(450, 550), true, true, true, true),
+  HASHING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
+  ENCRYPTING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
   ROOT_ACCOUNT: {
-    uid: '',
-    nickname: '',
-    password: '',
-    otpSecret: '',
+    uid: generateUUID(4),
+    nickname: 'root',
+    password: generatePassword(generateRandomInteger(40, 60), true, true, true, true),
+    otpSecret: generateOTPSecret(),
   },
-  ALTCHA_SECRET: '',
+  ALTCHA_SECRET: generatePassword(generateRandomInteger(80, 140), true, true, true, true),
   JWT_SECRET: {
-    refresh: '',
-    access: '',
+    refresh: generateRandomBytes(generateRandomInteger(90, 110)),
+    access: generateRandomBytes(generateRandomInteger(90, 110)),
   },
-  COOKIE_SECRET: '',
+  COOKIE_SECRET: generatePassword(generateRandomInteger(80, 140), true, true, true, true),
 });
 
 
