@@ -11,6 +11,12 @@
 const NODE_ENV = 'production';
 
 /**
+ * Root Account Nickname
+ * The nickname that will be used to identify the root account.
+ */
+const ROOT_ACCOUNT_NICKNAME = 'root';
+
+/**
  * POSTGRES_*
  * The values that will be used to initialize the PostgreSQL connection.
  */
@@ -47,6 +53,7 @@ const EXCHANGE_IDS = ['binance', 'bitfinex', 'kraken'];
  ************************************************************************************************ */
 export {
   NODE_ENV,
+  ROOT_ACCOUNT_NICKNAME,
   POSTGRES_HOST,
   POSTGRES_USER,
   POSTGRES_DB,

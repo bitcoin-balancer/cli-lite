@@ -2,6 +2,7 @@ import { generateRandomInteger, generateUUID } from 'web-utils-kit';
 import { IConfigFile, IConfigFileImmutable } from '../shared/types.js';
 import {
   NODE_ENV,
+  ROOT_ACCOUNT_NICKNAME,
   POSTGRES_DB,
   POSTGRES_HOST,
   POSTGRES_USER,
@@ -62,7 +63,7 @@ const buildImmutableConfig = (): IConfigFileImmutable => ({
   ENCRYPTING_SECRET: __generateRandomBytes(90, 110),
   ROOT_ACCOUNT: {
     uid: generateUUID(4),
-    nickname: 'root',
+    nickname: ROOT_ACCOUNT_NICKNAME,
     password: __generatePassword(40, 60),
     otpSecret: generateOTPSecret(),
   },
