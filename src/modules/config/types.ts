@@ -1,4 +1,4 @@
-import { IConfigFileMutable } from '../shared/types.js';
+import { IConfigFile, IConfigFileMutable } from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *
@@ -11,7 +11,7 @@ import { IConfigFileMutable } from '../shared/types.js';
  */
 type IConfigService = {
   // properties
-
+  config: IConfigFile,
 
   // utils
   requiresInitialization: () => boolean;

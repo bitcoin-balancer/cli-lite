@@ -1,5 +1,4 @@
-import { progressPrinterFactory } from '../../modules/shared/print/progress-printer.js';
-import { print } from '../../modules/shared/print/index.js';
+import { print, progressPrinterFactory } from '../../modules/shared/print/index.js';
 import {
   displayGUIURLInput,
   displayTelegramInput,

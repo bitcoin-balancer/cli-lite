@@ -89,7 +89,9 @@ const configServiceFactory = (): IConfigService => {
    ********************************************************************************************** */
   return Object.freeze({
     // properties
-    // ...
+    get config() {
+      return __config as IConfigFile;
+    },
 
     // utils
     requiresInitialization,
