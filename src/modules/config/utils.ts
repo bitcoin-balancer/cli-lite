@@ -1,5 +1,11 @@
 import { generateRandomInteger, generateUUID } from 'web-utils-kit';
 import { IConfigFile, IConfigFileImmutable } from '../shared/types.js';
+import {
+  NODE_ENV,
+  POSTGRES_DB,
+  POSTGRES_HOST,
+  POSTGRES_USER,
+} from '../shared/constants.js';
 import { readConfigFile } from '../shared/fs/index.js';
 import { generateOTPSecret } from '../shared/otp/index.js';
 import { generatePassword } from '../shared/password/index.js';
@@ -27,10 +33,10 @@ const getConfigFile = (): IConfigFile | undefined => {
  * @returns IConfigFileImmutable
  */
 const buildImmutableConfig = (): IConfigFileImmutable => ({
-  NODE_ENV: 'production',
-  POSTGRES_HOST: 'postgres',
-  POSTGRES_USER: 'postgres',
-  POSTGRES_DB: 'postgres',
+  NODE_ENV,
+  POSTGRES_HOST,
+  POSTGRES_USER,
+  POSTGRES_DB,
   POSTGRES_PASSWORD_FILE: generatePassword(generateRandomInteger(450, 550), true, true, true, true),
   HASHING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
   ENCRYPTING_SECRET: generateRandomBytes(generateRandomInteger(90, 110)),
