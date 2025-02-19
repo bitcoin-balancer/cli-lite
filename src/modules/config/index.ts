@@ -6,8 +6,8 @@ import {
   ITelegramConfig,
 } from '../shared/types.js';
 import { writeConfigFile } from '../shared/fs/index.js';
-import { IConfigService } from './types.js';
 import { getConfigFile, buildImmutableConfig } from './utils.js';
+import { IConfigService } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -40,6 +40,12 @@ const configServiceFactory = (): IConfigService => {
    * @returns boolean
    */
   const requiresInitialization = (): boolean => __config === undefined;
+
+  /**
+   * Verifies if the configuration has a valid tunnel token.
+   * @returns boolean
+   */
+  const hasTunnelToken = (): boolean => __config!.TUNNEL_TOKEN.length > 0;
 
 
 
@@ -139,6 +145,7 @@ const configServiceFactory = (): IConfigService => {
 
     // utils
     requiresInitialization,
+    hasTunnelToken,
 
     // config management
     initializeConfig,

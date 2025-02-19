@@ -1,9 +1,16 @@
 import { Separator } from '@inquirer/prompts';
+import { ICategoryMenuItem, IDecodedMenuAction } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
  ************************************************************************************************ */
-const MENU = [
+
+/**
+ * Builds the CLI's menu ready to be displayed.
+ * @param hasTunnelToken
+ * @returns ICategoryMenuItem[]
+ */
+const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
   {
     name: 'Docker',
     description: 'Run docker compose commands',
@@ -47,11 +54,16 @@ const MENU = [
         value: 'logs:gui',
         description: 'Displays log output from the gui service',
       },
-      {
-        value: 'logs:ct',
-        description: 'Displays log output from the ct service',
-      },
-      new Separator(),
+      ...(hasTunnelToken
+        ? [
+          {
+            value: 'logs:ct',
+            description: 'Displays log output from the ct service',
+          },
+          new Separator(),
+        ]
+        : [new Separator()]
+      ),
       {
         value: 'prune',
         description: 'Remove all unused containers, networks and images (both dangling and unused)',
@@ -101,11 +113,31 @@ const MENU = [
   },
 ];
 
+/**
+ * Decodes a chosen menu action by splitting it into an id and variation. For example:
+ * - decodeMenuAction('up') -> { id: 'up' }
+ * - decodeMenuAction('up:test-mode') -> { id: 'up', variation: 'test-mode' }
+ * @param action
+ * @returns IDecodedMenuAction
+ */
+const decodeMenuAction = (action: string): IDecodedMenuAction => {
+  if (action.includes(':')) {
+    const split = action.split(':');
+    return { id: split[0], variation: split[1] };
+  }
+  return { id: action };
+};
+
 
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
-  MENU,
+  // types
+  type IDecodedMenuAction,
+
+  // implmentation
+  buildMenu,
+  decodeMenuAction,
 };

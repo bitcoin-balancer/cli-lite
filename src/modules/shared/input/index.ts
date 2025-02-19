@@ -1,9 +1,7 @@
 import { select, input } from '@inquirer/prompts';
 import { IExchangeConfiguration, IExchangeCredentials, ITelegramConfig } from '../types.js';
 import { BASE_ASSET, EXCHANGE_IDS, QUOTE_ASSETS } from '../constants.js';
-import { MENU } from './constants.js';
-import { decodeMenuAction } from './utils.js';
-import { IDecodedMenuAction } from './types.js';
+import { buildMenu, decodeMenuAction, type IDecodedMenuAction } from '../menu/index.js';
 import {
   validateAPIKey,
   validateSecretKey,
@@ -17,13 +15,14 @@ import {
 
 /**
  * Displays the CLI menu and returns the chosen, decoded action.
+ * @param hasTunnelToken
  * @returns Promise<IDecodedMenuAction>
  */
-const displayMenuInput = async (): Promise<IDecodedMenuAction> => {
+const displayMenuInput = async (hasTunnelToken: boolean): Promise<IDecodedMenuAction> => {
   // display the categories menu
   const chosenCategory = await select({
     message: 'Select a category',
-    choices: MENU,
+    choices: buildMenu(hasTunnelToken),
     pageSize: 100,
     loop: false,
   });
