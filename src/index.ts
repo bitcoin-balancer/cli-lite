@@ -13,8 +13,9 @@ import { ConfigService } from './modules/config/index.js';
  */
 const main = async () => {
   // initialize the modules
-  await Promise.all([HostService.initialize(), ConfigService.initialize()]);
+  await ConfigService.initialize();
   const hasTunnelToken = ConfigService.hasTunnelToken();
+  await HostService.initialize(hasTunnelToken);
 
   // print the header
   printHeader(

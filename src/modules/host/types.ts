@@ -13,17 +13,18 @@ type IHostService = {
   packageFile: IPackageFile;
   latestVersion: string;
   systemInformation: string;
-
-  // retrievers
-  // ...
+  dockerProcess: IDockerProcess;
 
   // cli management
   pullSourceCode: () => Promise<void>;
   installDependencies: () => Promise<void>;
   buildCLI: () => Promise<void>;
 
+  // docker
+
+
   // initializer
-  initialize: () => Promise<void>;
+  initialize: (hasTunnelToken: boolean) => Promise<void>;
 };
 
 
@@ -38,7 +39,7 @@ type IHostService = {
  * Container Name
  * The names assigned to the containers by Docker Compose.
  */
-type IContainerName = 'balancer-postgres' | 'balancer-api' | 'balancer-gui' | 'balancer-ct';
+type IContainerName = 'postgres' | 'api' | 'gui' | 'ct';
 
 /**
  * Container State
@@ -49,10 +50,19 @@ type IContainerState = {
   running: boolean;
 } & (
   | {
+    running: true;
+  }
+  | {
     running: false;
     logs: string;
   }
 );
+type IContainerStates = {
+  'postgres': IContainerState;
+  'api': IContainerState;
+  'gui': IContainerState;
+  'ct'?: IContainerState;
+};
 
 /**
  * Docker Process
@@ -66,12 +76,7 @@ type IDockerProcess = {
   allDown: boolean;
 
   // the containers' state
-  containers: {
-    'balancer-postgres': IContainerState;
-    'balancer-api': IContainerState;
-    'balancer-gui': IContainerState;
-    'balancer-ct'?: IContainerState;
-  }
+  containers: IContainerStates;
 };
 
 
@@ -88,5 +93,6 @@ export type {
   // types
   IContainerName,
   IContainerState,
+  IContainerStates,
   IDockerProcess,
 };

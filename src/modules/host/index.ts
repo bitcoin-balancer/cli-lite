@@ -4,7 +4,13 @@ import { sendGET } from 'fetch-request-node';
 import { IPackageFile, PackageFileSchema } from '../shared/types.js';
 import { execute } from '../shared/command/index.js';
 import { readPackageFile } from '../shared/fs/index.js';
-import { IHostService } from './types.js';
+import {
+  IContainerName,
+  IContainerState,
+  IContainerStates,
+  IDockerProcess,
+  IHostService,
+} from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -28,6 +34,11 @@ const hostServiceFactory = (): IHostService => {
 
   // the state of the host machine
   let __systemInformation: string = '';
+
+  // the list of supported container names
+
+  // the state of the docker process
+  let __dockerProcess: IDockerProcess;
 
 
 
@@ -96,14 +107,121 @@ const hostServiceFactory = (): IHostService => {
 
 
   /* **********************************************************************************************
+   *                                            DOCKER                                            *
+   ********************************************************************************************** */
+
+
+  /**
+   * Retrieves the status of the Docker Process.
+   * @returns Promise<string[]>
+   */
+  const __getDockerProcessStatusRows = async (): Promise<string[]> => {
+    const ps = await execute('docker', ['ps'], 'pipe');
+    if (ps && ps.length > 0) {
+      return ps.split('\n').slice(1).filter((row) => row.length > 0);
+    }
+    return [];
+  };
+
+  /**
+   * Retrieves the latest logs for a given container. If it fails to do so, it returns the cause.
+   * @param name
+   * @param count?
+   * @returns Promise<string>
+   */
+  const __getLatestContainerLogs = async (
+    name: IContainerName,
+    count: number = 5,
+  ): Promise<string> => {
+    try {
+      return await execute('docker', ['compose', 'logs', name, '--tail', String(count)], 'pipe');
+    } catch (e) {
+      return `Unable to extract logs for ${name}: ${extractMessage(e)}`;
+    }
+  };
+
+
+
+
+
+  /* **********************************************************************************************
    *                                           INITIALIZER                                        *
    ********************************************************************************************** */
+
+  /**
+   * Checks if a container is running based on the status rows.
+   * @param name
+   * @param statusRows
+   * @returns boolean
+   */
+  const __isContainerRunning = (name: IContainerName, statusRows: string[]): boolean => (
+    statusRows.some((row) => row.includes(`balancer-${name}`) && row.includes('Up'))
+  );
+
+  /**
+   * Calculates the state of a container based on the status rows. If a container if not running,
+   * it will retrieve the latest logs in order to help identifying the cause of the crash.
+   * @param name
+   * @param statusRows
+   * @returns Promise<IContainerState>
+   */
+  const __calculateContainerState = async (
+    name: IContainerName,
+    statusRows: string[],
+  ): Promise<IContainerState> => {
+    if (__isContainerRunning(name, statusRows)) {
+      return { running: true };
+    }
+    return { running: false, logs: await __getLatestContainerLogs(name) };
+  };
+
+  /**
+   * Calculates the state for every container.
+   * @param hasTunnelToken
+   * @returns Promise<Array<[IContainerName, IContainerState]>>
+   */
+  const __calculateContainerStates = async (
+    hasTunnelToken: boolean,
+  ): Promise<Array<[IContainerName, IContainerState]>> => {
+    // retrieve the status of the Docker Process
+    const statusRows = await __getDockerProcessStatusRows();
+
+    // calculate the state for each container
+    const states: Array<[IContainerName, IContainerState]> = [
+      ['postgres', await __calculateContainerState('postgres', statusRows)],
+      ['api', await __calculateContainerState('api', statusRows)],
+      ['gui', await __calculateContainerState('gui', statusRows)],
+    ];
+    if (hasTunnelToken) {
+      states.push(['ct', await __calculateContainerState('ct', statusRows)]);
+    }
+
+    // finally, return the states
+    return states;
+  };
+
+  /**
+   * Calculates the state of the Docker Process based on the status of the containers.
+   * @param hasTunnelToken
+   * @returns Promise<IDockerProcess>
+   */
+  const __calculateDockerProcessState = async (
+    hasTunnelToken: boolean,
+  ): Promise<IDockerProcess> => {
+    const states = await __calculateContainerStates(hasTunnelToken);
+    console.log(Object.fromEntries(states));
+    return {
+      allRunning: states.some(([, value]) => value.running === false),
+      allDown: states.some(([, value]) => value.running === true),
+      containers: Object.fromEntries(states) as IContainerStates,
+    };
+  };
 
   /**
    * Initializes the essential data required by the Host Service.
    * @returns Promise<void>
    */
-  const initialize = async (): Promise<void> => {
+  const initialize = async (hasTunnelToken: boolean): Promise<void> => {
     // retrieve the package.json file
     __packageFile = readPackageFile();
 
@@ -118,7 +236,7 @@ const hostServiceFactory = (): IHostService => {
     }
 
     // retrieve the state of the Docker Containers
-    // ...
+    __dockerProcess = await __calculateDockerProcessState(hasTunnelToken);
   };
 
 
@@ -139,14 +257,16 @@ const hostServiceFactory = (): IHostService => {
     get systemInformation() {
       return __systemInformation;
     },
-
-    // retrievers
-    // ...
+    get dockerProcess() {
+      return __dockerProcess;
+    },
 
     // cli management
     pullSourceCode,
     installDependencies,
     buildCLI,
+
+    // docker
 
     // initializer
     initialize,
