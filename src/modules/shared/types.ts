@@ -36,6 +36,40 @@ type IPackageFile = z.infer<typeof PackageFileSchema>;
  ************************************************************************************************ */
 
 /**
+ * Telegram Config
+ * The contents of the TELEGRAM property in cli-lite's config.json file.
+ */
+const TelegramConfigSchema = z.object({
+  token: z.string(),
+  chatID: z.number(),
+});
+type ITelegramConfig = z.infer<typeof TelegramConfigSchema>;
+
+/**
+ * Exchange Configuration
+ * The contents of the EXCHANGE_CONFIGURATION property in cli-lite's config.json file.
+ */
+const ExchangeConfigurationSchema = z.object({
+  baseAsset: z.string(),
+  quoteAsset: z.string(),
+  window: z.string(),
+  liquidity: z.string(),
+  coins: z.string(),
+  trading: z.string(),
+});
+type IExchangeConfiguration = z.infer<typeof ExchangeConfigurationSchema>;
+
+/**
+ * Exchange Credentials
+ * The contents of the EXCHANGE_CREDENTIALS property in cli-lite's config.json file.
+ */
+const ExchangeCredentialsSchema = z.object({
+  key: z.string(),
+  secret: z.string(),
+});
+type IExchangeCredentials = z.infer<typeof ExchangeCredentialsSchema>;
+
+/**
  * Config File
  * The contents of cli-lite's config.json file.
  */
@@ -54,10 +88,7 @@ const ConfigFileSchema = z.object({
     password: z.string(),
     otpSecret: z.string(),
   }),
-  TELEGRAM: z.object({
-    token: z.string(),
-    chatID: z.number(),
-  }),
+  TELEGRAM: TelegramConfigSchema,
   ALTCHA_SECRET: z.string(),
   JWT_SECRET: z.object({
     refresh: z.string(),
@@ -74,14 +105,18 @@ const ConfigFileSchema = z.object({
   }),
   EXCHANGE_CREDENTIALS: z.record(
     z.string(),
-    z.object({
-      key: z.string(),
-      secret: z.string(),
-    }),
+    ExchangeCredentialsSchema,
   ),
   TUNNEL_TOKEN: z.string(),
 });
 type IConfigFile = z.infer<typeof ConfigFileSchema>;
+
+/**
+ * Config File Mutable/Immutable
+ * Utility types to separate what can and cannot be modified.
+ */
+type IConfigFileMutable = Pick<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
+type IConfigFileImmutable = Omit<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
 
 
 
@@ -96,6 +131,11 @@ export {
   type IPackageFile,
 
   // config file
+  type ITelegramConfig,
+  type IExchangeConfiguration,
+  type IExchangeCredentials,
   ConfigFileSchema,
   type IConfigFile,
+  type IConfigFileMutable,
+  type IConfigFileImmutable,
 };
