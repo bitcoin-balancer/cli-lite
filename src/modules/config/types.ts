@@ -1,4 +1,10 @@
-import { IConfigFile, IConfigFileMutable, ITelegramConfig } from '../shared/types.js';
+import {
+  IConfigFile,
+  IConfigFileMutable,
+  IExchangeConfiguration,
+  IExchangeCredentials,
+  ITelegramConfig,
+} from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *
@@ -20,7 +26,10 @@ type IConfigService = {
   initializeConfig: (config: IConfigFileMutable) => void;
   updateGUIURL: (newURL: string) => void;
   updateTelegram: (newConfig: ITelegramConfig) => void;
-  
+  updateExchangeConfigurationAndCredentials: (
+    newConfig: IExchangeConfiguration,
+    newCredentials: IExchangeCredentials,
+  ) => void;
   updateTunnelToken: (newToken: string) => void;
 
   // initializer

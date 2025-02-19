@@ -1,4 +1,10 @@
-import { IConfigFile, IConfigFileMutable, ITelegramConfig } from '../shared/types.js';
+import {
+  IConfigFile,
+  IConfigFileMutable,
+  IExchangeConfiguration,
+  IExchangeCredentials,
+  ITelegramConfig,
+} from '../shared/types.js';
 import { writeConfigFile } from '../shared/fs/index.js';
 import { IConfigService } from './types.js';
 import { getConfigFile, buildImmutableConfig } from './utils.js';
@@ -76,6 +82,20 @@ const configServiceFactory = (): IConfigService => {
     TELEGRAM: newConfig,
   });
 
+  /**
+   * Updates the EXCHANGE_CONFIGURATION and EXCHANGE_CREDENTIALS in the configuration file.
+   * @param newConfig
+   * @param newCredentials
+   */
+  const updateExchangeConfigurationAndCredentials = (
+    newConfig: IExchangeConfiguration,
+    newCredentials: IExchangeCredentials,
+  ): void => __update({
+    ...__config!,
+    EXCHANGE_CONFIGURATION: newConfig,
+    EXCHANGE_CREDENTIALS: { [newConfig.trading]: newCredentials },
+  });
+
 
   /**
    * Updates the TUNNEL_TOKEN in the configuration file.
@@ -124,7 +144,7 @@ const configServiceFactory = (): IConfigService => {
     initializeConfig,
     updateGUIURL,
     updateTelegram,
-
+    updateExchangeConfigurationAndCredentials,
     updateTunnelToken,
 
     // initializer
