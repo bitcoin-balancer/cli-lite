@@ -1,5 +1,5 @@
-import { writeConfigFile } from '../shared/fs/index.js';
 import { IConfigFile, IConfigFileMutable } from '../shared/types.js';
+import { writeConfigFile } from '../shared/fs/index.js';
 import { IConfigService } from './types.js';
 import { getConfigFile, buildImmutableConfig } from './utils.js';
 
@@ -61,6 +61,15 @@ const configServiceFactory = (): IConfigService => {
     ...buildImmutableConfig(),
   });
 
+  /**
+   * Updates the GUI_URL in the configuration file.
+   * @param newURL
+   */
+  const updateGUIURL = (newURL: string): void => __update({
+    ...__config!,
+    GUI_URL: newURL,
+  });
+
 
 
 
@@ -98,6 +107,7 @@ const configServiceFactory = (): IConfigService => {
 
     // config management
     initializeConfig,
+    updateGUIURL,
 
     // initializer
     initialize,

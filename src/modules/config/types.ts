@@ -18,6 +18,7 @@ type IConfigService = {
 
   // config management
   initializeConfig: (config: IConfigFileMutable) => void;
+  updateGUIURL: (newURL: string) => void;
 
   // initializer
   initialize: () => Promise<void>;
