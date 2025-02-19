@@ -6,7 +6,7 @@ import process from 'node:process';
 import { printHeader } from './modules/shared/print/index.js';
 import { HostService } from './modules/host/index.js';
 import { ConfigService } from './modules/config/index.js';
-import { displayMenu, IDecodedMenuAction } from './modules/shared/menu/index.js';
+import { displayMenuInput, IDecodedMenuAction } from './modules/shared/input/index.js';
 
 /**
  * Displays the main menu and executes the chosen action.
@@ -26,7 +26,7 @@ const main = async () => {
   // check if the configuration requires initialization. Otherwise, display the menu
   const action: IDecodedMenuAction = ConfigService.requiresInitialization()
     ? { id: 'init-config' }
-    : await displayMenu();
+    : await displayMenuInput();
 
   // execute the chosen action
   const actionModule = await import(`./actions/${action.id}/index.js`);

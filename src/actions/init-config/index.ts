@@ -1,7 +1,6 @@
-import { input } from '@inquirer/prompts';
-import { isURLValid } from 'web-utils-kit';
 import { progressPrinterFactory } from '../../modules/shared/print/progress-printer.js';
 import { print } from '../../modules/shared/print/index.js';
+import { displayGUIURLInput } from '../../modules/shared/input/index.js';
 
 /**
  * init-config
@@ -19,8 +18,5 @@ export default async () => {
 
   // GUI_URL
   progress.step();
-  const GUI_URL = await input({
-    message: 'Enter the GUI\'s URL. e.g. https://balancer.jesusgraterol.dev',
-    validate: (value) => (isURLValid(value) ? true : 'Please enter a valid URL'),
-  });
+  const GUI_URL = await displayGUIURLInput();
 };
