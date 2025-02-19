@@ -1,6 +1,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-console */
 import { isArrayValid, isObjectValid } from 'web-utils-kit';
+import { IContainerName, IContainerState, IContainerStates, IDockerProcess } from '../types.js';
 import { progressPrinterFactory } from './progress-printer.js';
 import { IPrintableData, IPrintConfig } from './types.js';
 
@@ -65,7 +66,7 @@ const print = ({
 
 
 /* ************************************************************************************************
- *                                        HEADER UTILITIES                                        *
+ *                                          HEADER UTILS                                          *
  ************************************************************************************************ */
 
 /**
@@ -90,9 +91,53 @@ const __printUpdateDetails = (currentVersion: string, latestVersion: string): vo
   if (currentVersion !== latestVersion) {
     print({
       title: 'Update available:',
-      data: `To update to version v${latestVersion}, use the CLI Management action: update-cli.`,
+      data: `  To update to version v${latestVersion}, use the CLI Management action: update-cli.`,
       marginTop: 1,
     });
+  }
+};
+
+/**
+ * Generates the string representation of a container's state.
+ * @param name
+ * @param state
+ * @returns string
+ */
+const __buildContainerStateString = (name: IContainerName, state: IContainerState): string => {
+  if (state.running) {
+    return `  ${name}: Running`;
+  }
+  return `  ${name}: Down\n${state.logs}`;
+};
+
+/**
+ * Generates the string representation of the Docker Process' states for all containers combined.
+ * @param states
+ * @returns string
+ */
+const __buildContainerStatesString = (states: IContainerStates) => (
+  Object.entries(states).reduce(
+    (accum: string, [name, state]) => (
+      accum.length > 0
+        ? `${accum}\n${__buildContainerStateString(name as IContainerName, state)}`
+        : __buildContainerStateString(name as IContainerName, state)
+    ),
+    '',
+  )
+);
+
+/**
+ * Prints the Docker Process' state to the console.
+ * @param process
+ */
+const __printDockerProcessState = (process: IDockerProcess): void => {
+  const data = __buildContainerStatesString(process.containers);
+  if (process.allDown) {
+    print({ data: 'Docker: Not running', marginBottom: 1 });
+  } else if (process.allRunning) {
+    print({ title: 'Docker: Running', data, marginBottom: 1 });
+  } else {
+    print({ title: 'Docker: Partially crashed', data, marginBottom: 1 });
   }
 };
 
@@ -107,7 +152,7 @@ const printHeader = (
   version: string,
   latestVersion: string,
   landscapeSysinfo: string,
-  dockerProcess: any,
+  dockerProcess: IDockerProcess,
 ): void => {
   __printLogo(version);
 
@@ -115,8 +160,16 @@ const printHeader = (
 
   print({ title: 'landscape-sysinfo:', data: landscapeSysinfo, marginTop: 1 });
 
-  print({ title: 'Docker:', data: dockerProcess, marginTop: 1, marginBottom: 1 });
+  __printDockerProcessState(dockerProcess);
 };
+
+
+
+
+
+/* ************************************************************************************************
+ *                                          MISC UTILS                                            *
+ ************************************************************************************************ */
 
 /**
  * Prints a message when an action executes succesfully.
@@ -136,7 +189,11 @@ const printActionResult = (action: string): void => {
 export {
   // implementation
   print,
+
+  // header utils
   printHeader,
+
+  // misc utils
   printActionResult,
 
   // progress printer

@@ -22,7 +22,7 @@ const main = async () => {
     HostService.packageFile.version,
     HostService.latestVersion,
     HostService.systemInformation,
-    {},
+    HostService.dockerProcess,
   );
 
   // check if the configuration requires initialization. Otherwise, display the menu

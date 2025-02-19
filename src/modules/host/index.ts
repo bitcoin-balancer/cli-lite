@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
 import { extractMessage } from 'error-message-utils';
 import { sendGET } from 'fetch-request-node';
-import { IPackageFile, PackageFileSchema } from '../shared/types.js';
-import { execute } from '../shared/command/index.js';
-import { readPackageFile } from '../shared/fs/index.js';
 import {
+  IPackageFile,
+  PackageFileSchema,
   IContainerName,
   IContainerState,
   IContainerStates,
   IDockerProcess,
-  IHostService,
-} from './types.js';
+} from '../shared/types.js';
+import { execute } from '../shared/command/index.js';
+import { readPackageFile } from '../shared/fs/index.js';
+import { IHostService } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -34,8 +35,6 @@ const hostServiceFactory = (): IHostService => {
 
   // the state of the host machine
   let __systemInformation: string = '';
-
-  // the list of supported container names
 
   // the state of the docker process
   let __dockerProcess: IDockerProcess;
@@ -131,13 +130,25 @@ const hostServiceFactory = (): IHostService => {
    */
   const __getLatestContainerLogs = async (
     name: IContainerName,
-    count: number = 5,
+    count: number = 15,
   ): Promise<string> => {
     try {
       return await execute('docker', ['compose', 'logs', name, '--tail', String(count)], 'pipe');
     } catch (e) {
       return `Unable to extract logs for ${name}: ${extractMessage(e)}`;
     }
+  };
+
+  /**
+   * Susbcribes to the log stream for a given container. If none is provided, it subscribes to all.
+   * @param name
+   * @returns Promise<void>
+   */
+  const susbcribeToLogs = (name?: IContainerName): Promise<void> => {
+    if (name) {
+      return execute('docker', ['compose', 'logs', name, '-f'], 'inherit');
+    }
+    return execute('docker', ['compose', 'logs', '-f'], 'inherit');
   };
 
 
@@ -209,10 +220,9 @@ const hostServiceFactory = (): IHostService => {
     hasTunnelToken: boolean,
   ): Promise<IDockerProcess> => {
     const states = await __calculateContainerStates(hasTunnelToken);
-    console.log(Object.fromEntries(states));
     return {
-      allRunning: states.some(([, value]) => value.running === false),
-      allDown: states.some(([, value]) => value.running === true),
+      allRunning: !states.some(([, value]) => value.running === false),
+      allDown: !states.some(([, value]) => value.running === true),
       containers: Object.fromEntries(states) as IContainerStates,
     };
   };
@@ -267,6 +277,7 @@ const hostServiceFactory = (): IHostService => {
     buildCLI,
 
     // docker
+    susbcribeToLogs,
 
     // initializer
     initialize,

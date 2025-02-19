@@ -123,6 +123,58 @@ type IConfigFileImmutable = Omit<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE
 
 
 /* ************************************************************************************************
+ *                                            DOCKER                                              *
+ ************************************************************************************************ */
+
+/**
+ * Container Name
+ * The names assigned to the containers by Docker Compose.
+ */
+type IContainerName = 'postgres' | 'api' | 'gui' | 'ct';
+
+/**
+ * Container State
+ * Object containing the state of a container. If the container is not running, it will hold the
+ * latest logs.
+ */
+type IContainerState = {
+  running: boolean;
+} & (
+  | {
+    running: true;
+  }
+  | {
+    running: false;
+    logs: string;
+  }
+);
+type IContainerStates = {
+  'postgres': IContainerState;
+  'api': IContainerState;
+  'gui': IContainerState;
+  'ct'?: IContainerState;
+};
+
+/**
+ * Docker Process
+ * The current state of the Docker Process that's running on the host.
+ */
+type IDockerProcess = {
+  // true if all the containers are running
+  allRunning: boolean;
+
+  // true if all the containers are down
+  allDown: boolean;
+
+  // the containers' state
+  containers: IContainerStates;
+};
+
+
+
+
+
+/* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
@@ -138,4 +190,10 @@ export {
   type IConfigFile,
   type IConfigFileMutable,
   type IConfigFileImmutable,
+
+  // docker
+  type IContainerName,
+  type IContainerState,
+  type IContainerStates,
+  type IDockerProcess,
 };
