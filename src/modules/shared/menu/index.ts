@@ -111,6 +111,16 @@ const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
       },
     ],
   },
+  {
+    name: 'Database Management',
+    description: 'Monitor and manage the database',
+    value: [
+      {
+        value: 'psql',
+        description: 'Start the terminal-based front-end to PostgreSQL',
+      },
+    ],
+  },
 ];
 
 /**
