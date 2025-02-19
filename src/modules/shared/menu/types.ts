@@ -14,6 +14,9 @@ type IActionMenuItem = {
 
   // a short description of what the action does
   description: string;
+
+  // whether the action is disabled or not
+  disabled?: boolean;
 };
 
 /**
@@ -29,6 +32,9 @@ type ICategoryMenuItem = {
 
   // the list of actions in the category
   value: (IActionMenuItem | Separator)[]
+
+  // whether the action is disabled or not
+  disabled?: boolean;
 };
 
 /**

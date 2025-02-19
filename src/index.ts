@@ -28,7 +28,7 @@ const main = async () => {
   // check if the configuration requires initialization. Otherwise, display the menu
   const action = ConfigService.requiresInitialization()
     ? { id: 'init-config' }
-    : await displayMenuInput(hasTunnelToken);
+    : await displayMenuInput(hasTunnelToken, HostService.dockerProcess);
 
   // execute the chosen action
   const actionModule = await import(`./actions/${action.id}.js`);

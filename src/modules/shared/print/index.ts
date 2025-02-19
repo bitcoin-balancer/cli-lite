@@ -105,9 +105,9 @@ const __printUpdateDetails = (currentVersion: string, latestVersion: string): vo
  */
 const __buildContainerStateString = (name: IContainerName, state: IContainerState): string => {
   if (state.running) {
-    return `  ${name}: Running`;
+    return `  ${name} ✔`;
   }
-  return `  ${name}: Down\n${state.logs}`;
+  return `  ${name} ❗\n${state.logs}`;
 };
 
 /**

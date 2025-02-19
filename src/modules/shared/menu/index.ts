@@ -1,4 +1,5 @@
 import { Separator } from '@inquirer/prompts';
+import { IDockerProcess } from '../types.js';
 import { ICategoryMenuItem, IDecodedMenuAction } from './types.js';
 
 /* ************************************************************************************************
@@ -10,7 +11,7 @@ import { ICategoryMenuItem, IDecodedMenuAction } from './types.js';
  * @param hasTunnelToken
  * @returns ICategoryMenuItem[]
  */
-const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
+const buildMenu = (hasTunnelToken: boolean, dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
   {
     name: 'Docker',
     description: 'Run docker compose commands',
@@ -18,24 +19,29 @@ const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
       {
         value: 'up',
         description: 'Creates and starts the containers',
+        disabled: !dockerProcess.allDown,
       },
       new Separator(),
       {
         value: 'build-up',
         description: 'Builds all the images and starts the containers',
+        disabled: !dockerProcess.allDown,
       },
       new Separator(),
       {
         value: 'down',
         description: 'Stops containers and removes containers, networks, volumes, and images created by up',
+        disabled: dockerProcess.allDown,
       },
       {
         value: 'down-build-up',
         description: 'Stops containers and removes containers, networks, volumes, and images created by up. Afterwards, it builds all the images and starts the containers',
+        disabled: dockerProcess.allDown,
       },
       {
         value: 'restart',
         description: 'Restarts all stopped and running services',
+        disabled: !dockerProcess.allRunning,
       },
       new Separator(),
       {
@@ -67,11 +73,13 @@ const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
       {
         value: 'prune',
         description: 'Remove all unused containers, networks and images (both dangling and unused)',
+        disabled: !dockerProcess.allDown,
       },
       new Separator(),
       {
         value: 'restart-daemon',
         description: 'Restart the Docker service on the host machine',
+        disabled: !dockerProcess.allDown,
       },
     ],
   },
@@ -86,18 +94,22 @@ const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
       {
         value: 'update-config:GUI_URL',
         description: 'Update the data stored in the GUI_URL property',
+        disabled: !dockerProcess.allDown,
       },
       {
         value: 'update-config:TELEGRAM',
         description: 'Update the data stored in the TELEGRAM property',
+        disabled: !dockerProcess.allDown,
       },
       {
         value: 'update-config:EXCHANGE_*',
         description: 'Update the data stored in the EXCHANGE_CONFIGURATION & EXCHANGE_CREDENTIALS properties',
+        disabled: !dockerProcess.allDown,
       },
       {
         value: 'update-config:TUNNEL_TOKEN',
         description: 'Update the data stored in the TUNNEL_TOKEN property',
+        disabled: !dockerProcess.allDown,
       },
     ],
   },
@@ -114,6 +126,7 @@ const buildMenu = (hasTunnelToken: boolean): ICategoryMenuItem[] => [
   {
     name: 'Database Management',
     description: 'Monitor and manage the database',
+    disabled: !dockerProcess.containers.postgres.running,
     value: [
       {
         value: 'psql',

@@ -1,5 +1,10 @@
 import { select, input } from '@inquirer/prompts';
-import { IExchangeConfiguration, IExchangeCredentials, ITelegramConfig } from '../types.js';
+import {
+  IDockerProcess,
+  IExchangeConfiguration,
+  IExchangeCredentials,
+  ITelegramConfig,
+} from '../types.js';
 import { BASE_ASSET, EXCHANGE_IDS, QUOTE_ASSETS } from '../constants.js';
 import { buildMenu, decodeMenuAction, type IDecodedMenuAction } from '../menu/index.js';
 import {
@@ -18,11 +23,14 @@ import {
  * @param hasTunnelToken
  * @returns Promise<IDecodedMenuAction>
  */
-const displayMenuInput = async (hasTunnelToken: boolean): Promise<IDecodedMenuAction> => {
+const displayMenuInput = async (
+  hasTunnelToken: boolean,
+  dockerProcess: IDockerProcess,
+): Promise<IDecodedMenuAction> => {
   // display the categories menu
   const chosenCategory = await select({
     message: 'Select a category',
-    choices: buildMenu(hasTunnelToken),
+    choices: buildMenu(hasTunnelToken, dockerProcess),
     pageSize: 100,
     loop: false,
   });
