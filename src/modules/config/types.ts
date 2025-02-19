@@ -1,4 +1,4 @@
-import { IConfigFile, IConfigFileMutable } from '../shared/types.js';
+import { IConfigFile, IConfigFileMutable, ITelegramConfig } from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *
@@ -19,6 +19,9 @@ type IConfigService = {
   // config management
   initializeConfig: (config: IConfigFileMutable) => void;
   updateGUIURL: (newURL: string) => void;
+  updateTelegram: (newConfig: ITelegramConfig) => void;
+  
+  updateTunnelToken: (newToken: string) => void;
 
   // initializer
   initialize: () => Promise<void>;

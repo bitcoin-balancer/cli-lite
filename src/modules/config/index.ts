@@ -1,4 +1,4 @@
-import { IConfigFile, IConfigFileMutable } from '../shared/types.js';
+import { IConfigFile, IConfigFileMutable, ITelegramConfig } from '../shared/types.js';
 import { writeConfigFile } from '../shared/fs/index.js';
 import { IConfigService } from './types.js';
 import { getConfigFile, buildImmutableConfig } from './utils.js';
@@ -65,11 +65,26 @@ const configServiceFactory = (): IConfigService => {
    * Updates the GUI_URL in the configuration file.
    * @param newURL
    */
-  const updateGUIURL = (newURL: string): void => __update({
+  const updateGUIURL = (newURL: string): void => __update({ ...__config!, GUI_URL: newURL });
+
+  /**
+   * Updates the TELEGRAM in the configuration file.
+   * @param newConfig
+   */
+  const updateTelegram = (newConfig: ITelegramConfig): void => __update({
     ...__config!,
-    GUI_URL: newURL,
+    TELEGRAM: newConfig,
   });
 
+
+  /**
+   * Updates the TUNNEL_TOKEN in the configuration file.
+   * @param newToken
+   */
+  const updateTunnelToken = (newToken: string): void => __update({
+    ...__config!,
+    TUNNEL_TOKEN: newToken,
+  });
 
 
 
@@ -108,6 +123,9 @@ const configServiceFactory = (): IConfigService => {
     // config management
     initializeConfig,
     updateGUIURL,
+    updateTelegram,
+
+    updateTunnelToken,
 
     // initializer
     initialize,
