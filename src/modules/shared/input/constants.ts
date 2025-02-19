@@ -80,12 +80,8 @@ const MENU = [
         description: 'Update the data stored in the TELEGRAM property',
       },
       {
-        value: 'update-config:EXCHANGE_CONFIGURATION',
-        description: 'Update the data stored in the EXCHANGE_CONFIGURATION property',
-      },
-      {
-        value: 'update-config:EXCHANGE_CREDENTIALS',
-        description: 'Update the data stored in the EXCHANGE_CREDENTIALS property',
+        value: 'update-config:EXCHANGE_*',
+        description: 'Update the data stored in the EXCHANGE_CONFIGURATION & EXCHANGE_CREDENTIALS properties',
       },
       {
         value: 'update-config:TUNNEL_TOKEN',
