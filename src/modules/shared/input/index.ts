@@ -1,9 +1,10 @@
 import { select, input } from '@inquirer/prompts';
+import { IExchangeConfiguration, ITelegramConfig } from '../types.js';
+import { BASE_ASSET, EXCHANGE_IDS, QUOTE_ASSETS } from '../constants.js';
 import { MENU } from './constants.js';
 import { decodeMenuAction } from './utils.js';
 import { IDecodedMenuAction } from './types.js';
 import { validateTelegramChatID, validateTelegramToken, validateURL } from './validations.js';
-import { IExchangeConfiguration, ITelegramConfig } from '../types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -65,18 +66,30 @@ const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
 });
 
 /**
+ * Displays the input prompt to select an exchange ID.
+ * @returns Promise<string>
+ */
+const displayExchangeIDInput = (message?: string): Promise<string> => select({
+  message: typeof message === 'string' ? message : 'Select an exchange',
+  choices: EXCHANGE_IDS,
+  loop: false,
+});
+
+/**
  * Displays the EXCHANGE_CONFIGURATION input prompt.
  * @returns Promise<IExchangeConfiguration>
  */
 const displayExchangeConfigurationInput = async (): Promise<IExchangeConfiguration> => ({
-  token: await input({
-    message: 'Enter the Telegram Bot Token',
-    validate: validateTelegramToken,
+  baseAsset: BASE_ASSET,
+  quoteAsset: await select({
+    message: 'Select the quote asset',
+    choices: QUOTE_ASSETS,
+    loop: false,
   }),
-  chatID: Number(await input({
-    message: 'Enter the Telegram Bot Token',
-    validate: validateTelegramChatID,
-  })),
+  window: await displayExchangeIDInput('Select the exchange that will be used by the Window Indicator'),
+  liquidity: await displayExchangeIDInput('Select the exchange that will be used by the Liquidity Indicator'),
+  coins: await displayExchangeIDInput('Select the exchange that will be used by the Coins Indicator'),
+  trading: await displayExchangeIDInput('Select the exchange that will be used by Balancer to trade'),
 });
 
 
@@ -94,5 +107,6 @@ export {
   displayURLInput,
   displayGUIURLInput,
   displayTelegramInput,
+  displayExchangeIDInput,
   displayExchangeConfigurationInput,
 };
