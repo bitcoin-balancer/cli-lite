@@ -118,6 +118,14 @@ const printHeader = (
   print({ title: 'Docker:', data: dockerProcess, marginTop: 1, marginBottom: 1 });
 };
 
+/**
+ * Prints a message when an action executes succesfully.
+ * @param action
+ */
+const printActionResult = (action: string): void => {
+  console.log(`\n\nThe action '${action}' was executed successfully!`);
+};
+
 
 
 
@@ -129,6 +137,7 @@ export {
   // implementation
   print,
   printHeader,
+  printActionResult,
 
   // progress printer
   progressPrinterFactory,

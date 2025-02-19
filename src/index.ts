@@ -24,7 +24,7 @@ const main = async () => {
   );
 
   // check if the configuration requires initialization. Otherwise, display the menu
-  const action: IDecodedMenuAction = !ConfigService.requiresInitialization()
+  const action: IDecodedMenuAction = ConfigService.requiresInitialization()
     ? { id: 'init-config' }
     : await displayMenu();
 
