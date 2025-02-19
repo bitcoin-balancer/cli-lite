@@ -1,4 +1,4 @@
-
+import { IConfigFileMutable } from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *
@@ -15,6 +15,9 @@ type IConfigService = {
 
   // utils
   requiresInitialization: () => boolean;
+
+  // config management
+  initializeConfig: (config: IConfigFileMutable) => void;
 
   // initializer
   initialize: () => Promise<void>;

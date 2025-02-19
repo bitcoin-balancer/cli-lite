@@ -1,4 +1,4 @@
-import { IConfigFile } from '../shared/types.js';
+import { IConfigFile, IConfigFileImmutable } from '../shared/types.js';
 import { readConfigFile } from '../shared/fs/index.js';
 
 /* ************************************************************************************************
@@ -18,6 +18,32 @@ const getConfigFile = (): IConfigFile | undefined => {
   }
 };
 
+/**
+ * Builds the immutable part of the configuration file.
+ * @returns IConfigFileImmutable
+ */
+const buildImmutableConfig = (): IConfigFileImmutable => ({
+  NODE_ENV: 'production',
+  POSTGRES_HOST: 'postgres',
+  POSTGRES_USER: 'postgres',
+  POSTGRES_DB: 'postgres',
+  POSTGRES_PASSWORD_FILE: '',
+  HASHING_SECRET: '',
+  ENCRYPTING_SECRET: '',
+  ROOT_ACCOUNT: {
+    uid: '',
+    nickname: '',
+    password: '',
+    otpSecret: '',
+  },
+  ALTCHA_SECRET: '',
+  JWT_SECRET: {
+    refresh: '',
+    access: '',
+  },
+  COOKIE_SECRET: '',
+});
+
 
 
 
@@ -27,4 +53,5 @@ const getConfigFile = (): IConfigFile | undefined => {
  ************************************************************************************************ */
 export {
   getConfigFile,
+  buildImmutableConfig,
 };

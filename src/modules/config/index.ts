@@ -1,6 +1,7 @@
-import { IConfigFile } from '../shared/types.js';
+import { writeConfigFile } from '../shared/fs/index.js';
+import { IConfigFile, IConfigFileMutable } from '../shared/types.js';
 import { IConfigService } from './types.js';
-import { getConfigFile } from './utils.js';
+import { getConfigFile, buildImmutableConfig } from './utils.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -39,6 +40,32 @@ const configServiceFactory = (): IConfigService => {
 
 
   /* **********************************************************************************************
+   *                                       CONFIG MANAGEMENT                                      *
+   ********************************************************************************************** */
+
+  /**
+   * Updates the config file with the new values.
+   * @param newConfig
+   */
+  const __updateConfig = (newConfig: IConfigFile): void => {
+    writeConfigFile(newConfig);
+    __config = newConfig;
+  };
+
+  /**
+   * Initializes the configuration with the provided values.
+   * @param config
+   */
+  const initializeConfig = (config: IConfigFileMutable): void => __updateConfig({
+    ...config,
+    ...buildImmutableConfig(),
+  });
+
+
+
+
+
+  /* **********************************************************************************************
    *                                          INITIALIZER                                         *
    ********************************************************************************************** */
 
@@ -66,6 +93,9 @@ const configServiceFactory = (): IConfigService => {
 
     // utils
     requiresInitialization,
+
+    // config management
+    initializeConfig,
 
     // initializer
     initialize,
