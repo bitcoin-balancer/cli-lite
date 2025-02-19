@@ -1,10 +1,15 @@
 import { select, input } from '@inquirer/prompts';
-import { IExchangeConfiguration, ITelegramConfig } from '../types.js';
+import { IExchangeConfiguration, IExchangeCredentials, ITelegramConfig } from '../types.js';
 import { BASE_ASSET, EXCHANGE_IDS, QUOTE_ASSETS } from '../constants.js';
 import { MENU } from './constants.js';
 import { decodeMenuAction } from './utils.js';
 import { IDecodedMenuAction } from './types.js';
-import { validateTelegramChatID, validateTelegramToken, validateURL } from './validations.js';
+import {
+  validateAPIKey,
+  validateSecretKey,
+  validateTelegramChatID,
+  validateURL,
+} from './validations.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -56,11 +61,11 @@ const displayGUIURLInput = (): Promise<string> => (
  */
 const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
   token: await input({
-    message: 'Enter the Telegram Bot Token',
-    validate: validateTelegramToken,
+    message: 'Enter the Telegram Bot Token - Leave blank if not using Telegram',
   }),
   chatID: Number(await input({
-    message: 'Enter the Telegram Bot Token',
+    default: '0',
+    message: 'Enter the Telegram Bot Token - Leave 0 if not using Telegram',
     validate: validateTelegramChatID,
   })),
 });
@@ -69,9 +74,9 @@ const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
  * Displays the input prompt to select an exchange ID.
  * @returns Promise<string>
  */
-const displayExchangeIDInput = (message?: string): Promise<string> => select({
+const displayExchangeIDInput = (message?: string, choices?: string[]): Promise<string> => select({
   message: typeof message === 'string' ? message : 'Select an exchange',
-  choices: EXCHANGE_IDS,
+  choices: Array.isArray(choices) ? choices : EXCHANGE_IDS,
   loop: false,
 });
 
@@ -89,8 +94,27 @@ const displayExchangeConfigurationInput = async (): Promise<IExchangeConfigurati
   window: await displayExchangeIDInput('Select the exchange that will be used by the Window Indicator'),
   liquidity: await displayExchangeIDInput('Select the exchange that will be used by the Liquidity Indicator'),
   coins: await displayExchangeIDInput('Select the exchange that will be used by the Coins Indicator'),
-  trading: await displayExchangeIDInput('Select the exchange that will be used by Balancer to trade'),
+  trading: await displayExchangeIDInput('Select the exchange that will be used by Balancer to trade', ['binance']),
 });
+
+/**
+ * Displays the EXCHANGE_CREDENTIALS input prompt
+ * @param id
+ * @returns Promise<IExchangeCredentials>
+ */
+const displayExchangeCredentialsInput = async (id: string): Promise<IExchangeCredentials> => ({
+  key: await input({ message: `Enter your ${id} API key`, validate: validateAPIKey }),
+  secret: await input({ message: `Enter your ${id} secret key`, validate: validateSecretKey }),
+});
+
+/**
+ * Displays the TUNNEL_TOKEN input prompt.
+ * @returns Promise<string>
+ */
+const displayTunnelTokenInput = async (): Promise<string> => (
+  input({ message: 'Enter the Tunnel Token - Leave blank if not using a tunnel' })
+);
+
 
 
 
@@ -109,4 +133,6 @@ export {
   displayTelegramInput,
   displayExchangeIDInput,
   displayExchangeConfigurationInput,
+  displayExchangeCredentialsInput,
+  displayTunnelTokenInput,
 };

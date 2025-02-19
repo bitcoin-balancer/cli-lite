@@ -4,7 +4,10 @@ import {
   displayGUIURLInput,
   displayTelegramInput,
   displayExchangeConfigurationInput,
+  displayExchangeCredentialsInput,
+  displayTunnelTokenInput,
 } from '../../modules/shared/input/index.js';
+import { ConfigService } from '../../modules/config/index.js';
 
 /**
  * init-config
@@ -31,4 +34,24 @@ export default async () => {
   // EXCHANGE_CONFIGURATION
   progress.step();
   const EXCHANGE_CONFIGURATION = await displayExchangeConfigurationInput();
+
+  // EXCHANGE_CREDENTIALS
+  progress.step();
+  const EXCHANGE_CREDENTIALS = await displayExchangeCredentialsInput(
+    EXCHANGE_CONFIGURATION.trading,
+  );
+
+  // TUNNEL_TOKEN
+  progress.step();
+  const TUNNEL_TOKEN = await displayTunnelTokenInput();
+
+  // finally, save the config
+  ConfigService.initializeConfig({
+    GUI_URL,
+    TELEGRAM,
+    EXCHANGE_CONFIGURATION,
+    EXCHANGE_CREDENTIALS: { [EXCHANGE_CONFIGURATION.trading]: EXCHANGE_CREDENTIALS },
+    TUNNEL_TOKEN,
+  });
+  progress.step();
 };
