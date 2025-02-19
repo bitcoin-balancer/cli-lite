@@ -1,5 +1,5 @@
-import { progressPrinterFactory } from '../../modules/shared/print/index.js';
-import { HostService } from '../../modules/host/index.js';
+import { progressPrinterFactory } from '../modules/shared/print/index.js';
+import { HostService } from '../modules/host/index.js';
 
 /**
  * update-cli

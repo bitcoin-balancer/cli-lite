@@ -1,5 +1,5 @@
-import { print } from '../../modules/shared/print/index.js';
-import { ConfigService } from '../../modules/config/index.js';
+import { print } from '../modules/shared/print/index.js';
+import { ConfigService } from '../modules/config/index.js';
 
 /**
  * view-config

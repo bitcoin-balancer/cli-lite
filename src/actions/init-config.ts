@@ -1,12 +1,12 @@
-import { print, progressPrinterFactory } from '../../modules/shared/print/index.js';
+import { print, progressPrinterFactory } from '../modules/shared/print/index.js';
 import {
   displayGUIURLInput,
   displayTelegramInput,
   displayExchangeConfigurationInput,
   displayExchangeCredentialsInput,
   displayTunnelTokenInput,
-} from '../../modules/shared/input/index.js';
-import { ConfigService } from '../../modules/config/index.js';
+} from '../modules/shared/input/index.js';
+import { ConfigService } from '../modules/config/index.js';
 
 /**
  * init-config

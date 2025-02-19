@@ -4,9 +4,9 @@
 /* eslint-disable no-console */
 import process from 'node:process';
 import { printHeader } from './modules/shared/print/index.js';
+import { displayMenuInput } from './modules/shared/input/index.js';
 import { HostService } from './modules/host/index.js';
 import { ConfigService } from './modules/config/index.js';
-import { displayMenuInput } from './modules/shared/input/index.js';
 
 /**
  * Displays the main menu and executes the chosen action.
@@ -29,7 +29,7 @@ const main = async () => {
     : await displayMenuInput(ConfigService.hasTunnelToken());
 
   // execute the chosen action
-  const actionModule = await import(`./actions/${action.id}/index.js`);
+  const actionModule = await import(`./actions/${action.id}.js`);
   await actionModule.default(action.variation);
 };
 
