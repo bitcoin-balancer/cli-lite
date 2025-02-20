@@ -110,6 +110,10 @@ const hostServiceFactory = (): IHostService => {
    ********************************************************************************************** */
 
   /**
+   * Process
+   */
+
+  /**
    * Retrieves the status of the Docker Process.
    * @returns Promise<string[]>
    */
@@ -122,16 +126,8 @@ const hostServiceFactory = (): IHostService => {
   };
 
   /**
-   * Stops containers and removes containers, networks, volumes, and images created by up.
-   * @returns Promise<void>
+   * Logs
    */
-  const down = (): Promise<void> => execute('docker', ['compose', 'down'], 'inherit');
-
-  /**
-   * Restarts all stopped and running services.
-   * @returns Promise<void>
-   */
-  const restart = (): Promise<void> => execute('docker', ['compose', 'restart'], 'inherit');
 
   /**
    * Retrieves the latest logs for a given container. If it fails to do so, it returns the cause.
@@ -163,6 +159,10 @@ const hostServiceFactory = (): IHostService => {
   };
 
   /**
+   * Maintenance
+   */
+
+  /**
    * Removes all unused containers, networks and images (both dangling and unused).
    * @returns Promise<void>
    */
@@ -175,6 +175,42 @@ const hostServiceFactory = (): IHostService => {
    * @returns Promise<void>
    */
   const restartDaemon = (): Promise<void> => execute('systemctl', ['restart', 'docker'], 'inherit');
+
+  /**
+   * Containers
+   */
+
+  /**
+   * Stops containers and removes containers, networks, volumes, and images created by up.
+   * @returns Promise<void>
+   */
+  const down = (): Promise<void> => execute('docker', ['compose', 'down'], 'inherit');
+
+  /**
+   * Restarts all stopped and running services.
+   * @returns Promise<void>
+   */
+  const restart = (): Promise<void> => execute('docker', ['compose', 'restart'], 'inherit');
+
+  /**
+   * Pulls the latest images from the registry, creates and starts the containers
+   * @returns Promise<void>
+   */
+  const up = async (): Promise<void> => {
+    // build the environment assets
+    // ...
+
+    // prune the system
+    await prune();
+    await restartDaemon();
+
+    // pull the latest images from the registry and create the containers
+    return execute('docker', ['compose', 'up', '--pull', 'always', '--no-build', '--detach'], 'inherit');
+  };
+
+  /**
+   * Database
+   */
 
   /**
    * Initializes a psql session in the postgres container.
@@ -310,11 +346,12 @@ const hostServiceFactory = (): IHostService => {
     buildCLI,
 
     // docker
-    down,
-    restart,
     susbcribeToLogs,
     prune,
     restartDaemon,
+    down,
+    restart,
+    up,
     psql,
 
     // initializer
