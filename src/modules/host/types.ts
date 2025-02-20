@@ -22,6 +22,8 @@ type IHostService = {
 
   // docker
   susbcribeToLogs: (name?: IContainerName) => Promise<void>;
+  prune: () => Promise<void>;
+  restartDaemon: () => Promise<void>;
   psql: () => Promise<void>;
 
   // initializer

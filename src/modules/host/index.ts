@@ -152,6 +152,20 @@ const hostServiceFactory = (): IHostService => {
   };
 
   /**
+   * Removes all unused containers, networks and images (both dangling and unused).
+   * @returns Promise<void>
+   */
+  const prune = (): Promise<void> => (
+    execute('docker', ['system', 'prune', '--all', '--force'], 'inherit')
+  );
+
+  /**
+   * Restarts Docker's Systemd service.
+   * @returns Promise<void>
+   */
+  const restartDaemon = (): Promise<void> => execute('systemctl', ['restart', 'docker'], 'inherit');
+
+  /**
    * Initializes a psql session in the postgres container.
    * @returns Promise<void>
    */
@@ -286,6 +300,8 @@ const hostServiceFactory = (): IHostService => {
 
     // docker
     susbcribeToLogs,
+    prune,
+    restartDaemon,
     psql,
 
     // initializer
