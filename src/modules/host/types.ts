@@ -22,6 +22,7 @@ type IHostService = {
 
   // docker
   susbcribeToLogs: (name?: IContainerName) => Promise<void>;
+  psql: () => Promise<void>;
 
   // initializer
   initialize: (hasTunnelToken: boolean) => Promise<void>;

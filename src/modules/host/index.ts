@@ -151,6 +151,14 @@ const hostServiceFactory = (): IHostService => {
     return execute('docker', ['compose', 'logs', '-f'], 'inherit');
   };
 
+  /**
+   * Initializes a psql session in the postgres container.
+   * @returns Promise<void>
+   */
+  const psql = (): Promise<void> => (
+    execute('docker', ['compose', 'exec', '-it', 'postgres', 'psql', '-U', 'postgres'], 'inherit')
+  );
+
 
 
 
@@ -278,6 +286,7 @@ const hostServiceFactory = (): IHostService => {
 
     // docker
     susbcribeToLogs,
+    psql,
 
     // initializer
     initialize,
