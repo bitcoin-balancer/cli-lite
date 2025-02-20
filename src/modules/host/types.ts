@@ -21,6 +21,8 @@ type IHostService = {
   buildCLI: () => Promise<void>;
 
   // docker
+  down: () => Promise<void>;
+  restart: () => Promise<void>;
   susbcribeToLogs: (name?: IContainerName) => Promise<void>;
   prune: () => Promise<void>;
   restartDaemon: () => Promise<void>;

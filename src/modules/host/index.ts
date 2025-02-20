@@ -109,7 +109,6 @@ const hostServiceFactory = (): IHostService => {
    *                                            DOCKER                                            *
    ********************************************************************************************** */
 
-
   /**
    * Retrieves the status of the Docker Process.
    * @returns Promise<string[]>
@@ -121,6 +120,18 @@ const hostServiceFactory = (): IHostService => {
     }
     return [];
   };
+
+  /**
+   * Stops containers and removes containers, networks, volumes, and images created by up.
+   * @returns Promise<void>
+   */
+  const down = (): Promise<void> => execute('docker', ['compose', 'down'], 'inherit');
+
+  /**
+   * Restarts all stopped and running services.
+   * @returns Promise<void>
+   */
+  const restart = (): Promise<void> => execute('docker', ['compose', 'restart'], 'inherit');
 
   /**
    * Retrieves the latest logs for a given container. If it fails to do so, it returns the cause.
@@ -299,6 +310,8 @@ const hostServiceFactory = (): IHostService => {
     buildCLI,
 
     // docker
+    down,
+    restart,
     susbcribeToLogs,
     prune,
     restartDaemon,
