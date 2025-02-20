@@ -193,7 +193,7 @@ const hostServiceFactory = (): IHostService => {
   const restart = (): Promise<void> => execute('docker', ['compose', 'restart'], 'inherit');
 
   /**
-   * Pulls the latest images from the registry, creates and starts the containers
+   * Pulls the latest images from the registry, creates and starts the containers.
    * @returns Promise<void>
    */
   const up = async (): Promise<void> => {
