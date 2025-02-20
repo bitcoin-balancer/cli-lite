@@ -18,13 +18,7 @@ const buildMenu = (hasTunnelToken: boolean, dockerProcess: IDockerProcess): ICat
     value: [
       {
         value: 'up',
-        description: 'Creates and starts the containers',
-        disabled: !dockerProcess.allDown,
-      },
-      new Separator(),
-      {
-        value: 'build-up',
-        description: 'Builds all the images and starts the containers',
+        description: 'Pulls the latest images from the registry, creates and starts the containers',
         disabled: !dockerProcess.allDown,
       },
       new Separator(),
@@ -34,8 +28,8 @@ const buildMenu = (hasTunnelToken: boolean, dockerProcess: IDockerProcess): ICat
         disabled: dockerProcess.allDown,
       },
       {
-        value: 'down-build-up',
-        description: 'Stops containers and removes containers, networks, volumes, and images created by up. Afterwards, it builds all the images and starts the containers',
+        value: 'down-up',
+        description: 'Stops containers and removes containers, networks, volumes, and images created by up. Afterwards, it pulls the latest images from the registry, creates and starts the containers',
         disabled: dockerProcess.allDown,
       },
       {
