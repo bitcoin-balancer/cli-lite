@@ -1,3 +1,4 @@
+import { isObjectValid } from 'web-utils-kit';
 import {
   IConfigFile,
   IConfigFileMutable,
@@ -45,7 +46,7 @@ const configServiceFactory = (): IConfigService => {
    * Verifies if the configuration has a valid tunnel token.
    * @returns boolean
    */
-  const hasTunnelToken = (): boolean => __config!.TUNNEL_TOKEN.length > 0;
+  const hasTunnelToken = (): boolean => isObjectValid(__config) && __config.TUNNEL_TOKEN.length > 0;
 
 
 
