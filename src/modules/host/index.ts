@@ -8,6 +8,7 @@ import {
   IContainerState,
   IContainerStates,
   IDockerProcess,
+  IConfigFile,
 } from '../shared/types.js';
 import { readPackageFile } from '../shared/fs/index.js';
 import {
@@ -196,9 +197,10 @@ const hostServiceFactory = (): IHostService => {
 
   /**
    * Pulls the latest images from the registry, creates and starts the containers.
+   * @param config
    * @returns Promise<void>
    */
-  const up = async (): Promise<void> => {
+  const up = async (config: IConfigFile): Promise<void> => {
     // build the environment assets
     // ...
 

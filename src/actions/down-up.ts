@@ -1,4 +1,5 @@
 import { progressPrinterFactory } from '../modules/shared/print/index.js';
+import { ConfigService } from '../modules/config/index.js';
 import { HostService } from '../modules/host/index.js';
 
 /**
@@ -14,6 +15,6 @@ export default async () => {
   progress.step();
   await HostService.down();
   progress.step();
-  await HostService.up();
+  await HostService.up(ConfigService.config);
   progress.step();
 };

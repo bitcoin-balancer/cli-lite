@@ -1,4 +1,9 @@
-import { IContainerName, IDockerProcess, IPackageFile } from '../shared/types.js';
+import {
+  IConfigFile,
+  IContainerName,
+  IDockerProcess,
+  IPackageFile,
+} from '../shared/types.js';
 
 /* ************************************************************************************************
  *                                            SERVICE                                             *
@@ -26,7 +31,7 @@ type IHostService = {
   restartDaemon: () => Promise<void>;
   down: () => Promise<void>;
   restart: () => Promise<void>;
-  up: () => Promise<void>;
+  up: (config: IConfigFile) => Promise<void>;
   psql: () => Promise<void>;
 
   // initializer
