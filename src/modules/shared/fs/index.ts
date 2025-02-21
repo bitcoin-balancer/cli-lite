@@ -92,7 +92,7 @@ const clearSecrets = (): void => deleteDirectory(__SECRETS_DIR_PATH);
  * @param content
  */
 const writeSecret = (key: IConfigSecretKey, content: string): void => (
-  writeTextFile(`${__SECRETS_DIR_PATH}/${key}`, content)
+  writeTextFile(`${__SECRETS_DIR_PATH}/${key}.txt`, content)
 );
 
 /**
