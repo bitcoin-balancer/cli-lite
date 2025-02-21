@@ -11,6 +11,7 @@ import {
   IConfigFile,
 } from '../shared/types.js';
 import { readPackageFile } from '../shared/fs/index.js';
+import { buildEnvironmentAssets } from '../shared/environment-assets/index.js';
 import {
   landscapeSysinfo,
   git,
@@ -34,6 +35,9 @@ const hostServiceFactory = (): IHostService => {
   /* **********************************************************************************************
    *                                          PROPERTIES                                          *
    ********************************************************************************************** */
+
+  // true if the config has a valid tunnel token
+  let __hasTunnelToken: boolean;
 
   // the cli-lite's package.json file
   let __packageFile: IPackageFile;
@@ -202,7 +206,7 @@ const hostServiceFactory = (): IHostService => {
    */
   const up = async (config: IConfigFile): Promise<void> => {
     // build the environment assets
-    // ...
+    buildEnvironmentAssets(config, __hasTunnelToken);
 
     // prune the system
     await prune();
@@ -302,6 +306,9 @@ const hostServiceFactory = (): IHostService => {
    * @returns Promise<void>
    */
   const initialize = async (hasTunnelToken: boolean): Promise<void> => {
+    // true if the platform is making use of a cloudflare tunnel
+    __hasTunnelToken = hasTunnelToken;
+
     // retrieve the package.json file
     __packageFile = readPackageFile();
 
