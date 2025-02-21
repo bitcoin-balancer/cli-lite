@@ -219,7 +219,7 @@ const hostServiceFactory = (): IHostService => {
     await restartDaemon();
 
     // pull the latest images from the registry and create the containers
-    return dockerCompose('up --pull always --no-build --detach', true);
+    // return dockerCompose('up --pull always --no-build --detach', true);
   };
 
   /**

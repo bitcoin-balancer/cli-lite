@@ -22,7 +22,7 @@ const stringifyValue = (value: unknown): string => (
  * @param key
  * @returns string
  */
-const buildSecretPath = (key: IConfigSecretKey): string => `${key}=/run/secrets/${key}\n`;
+const buildSecretPath = (key: IConfigSecretKey): string => `${key}=/run/secrets/${key}`;
 
 
 
