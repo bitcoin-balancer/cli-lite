@@ -11,6 +11,7 @@ import {
 } from '../shared/types.js';
 import { execute } from '../shared/command/index.js';
 import { readPackageFile } from '../shared/fs/index.js';
+import { git, npm } from './utils.js';
 import { IHostService } from './types.js';
 
 /* ************************************************************************************************
@@ -87,19 +88,19 @@ const hostServiceFactory = (): IHostService => {
    * Pulls the latest version of the source code from the repository.
    * @returns Promise<void>
    */
-  const pullSourceCode = (): Promise<void> => execute('git', ['pull', 'origin', 'main'], 'inherit');
+  const pullSourceCode = (): Promise<void> => git('pull origin main', true);
 
   /**
    * Installs the dependencies of the cli-lite package.
    * @returns Promise<void>
    */
-  const installDependencies = (): Promise<void> => execute('npm', ['ci'], 'inherit');
+  const installDependencies = (): Promise<void> => npm('ci', true);
 
   /**
    * Runs the CLI's build script.
    * @returns Promise<void>
    */
-  const buildCLI = (): Promise<void> => execute('npm', ['run', 'build'], 'inherit');
+  const buildCLI = (): Promise<void> => npm('run build', true);
 
 
 
