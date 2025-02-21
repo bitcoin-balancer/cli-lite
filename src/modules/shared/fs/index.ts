@@ -1,4 +1,9 @@
-import { readJSONFile, writeJSONFile } from 'fs-utils-sync';
+import {
+  deleteDirectory,
+  readJSONFile,
+  writeJSONFile,
+  writeTextFile,
+} from 'fs-utils-sync';
 import {
   PackageFileSchema,
   type IPackageFile,
@@ -15,6 +20,15 @@ const __PACKAGE_FILE_PATH = 'package.json';
 
 // the path to the config.json file
 const __CONFIG_FILE_PATH = 'config.json';
+
+// the path to the secrets' directory
+const __SECRETS_DIR_PATH = 'secrets';
+
+// the path to the environment file
+const __ENV_FILE_PATH = '.env';
+
+// the path to the compose file
+const __COMPOSE_FILE_PATH = 'compose.yaml';
 
 
 
@@ -63,6 +77,31 @@ const writeConfigFile = (config: IConfigFile): void => writeJSONFile(__CONFIG_FI
 
 
 /* ************************************************************************************************
+ *                                       ENVIRONMENT ASSETS                                       *
+ ************************************************************************************************ */
+
+/**
+ * Deletes the secrets directory and all its contents.
+ */
+const clearSecrets = (): void => deleteDirectory(__SECRETS_DIR_PATH);
+
+/**
+ * Creates or updates the environment file (.env).
+ * @param content
+ */
+const writeEnvFile = (content: string): void => writeTextFile(__ENV_FILE_PATH, content);
+
+/**
+ * Creates or updates the compose file (compose.yaml).
+ * @param content
+ */
+const writeComposeFile = (content: string): void => writeTextFile(__COMPOSE_FILE_PATH, content);
+
+
+
+
+
+/* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
@@ -72,4 +111,9 @@ export {
   // config file
   readConfigFile,
   writeConfigFile,
+
+  // environment assets
+  clearSecrets,
+  writeEnvFile,
+  writeComposeFile,
 };
