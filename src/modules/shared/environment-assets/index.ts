@@ -1,28 +1,7 @@
 import { IConfigFile, IConfigSecretKey } from '../types.js';
+import { SECRET_PROPERTIES } from '../constants.js';
 import { clearSecrets, writeEnvFile, writeSecret } from '../fs/index.js';
 import { buildSecretPath, stringifyValue } from './utils.js';
-
-/* ************************************************************************************************
- *                                           CONSTANTS                                            *
- ************************************************************************************************ */
-
-// the list of properties that are considered secret and should not be saved in the environment file
-const __SECRET_PROPERTIES: IConfigSecretKey[] = [
-  'ALTCHA_SECRET',
-  'COOKIE_SECRET',
-  'ENCRYPTING_SECRET',
-  'EXCHANGE_CREDENTIALS',
-  'HASHING_SECRET',
-  'JWT_SECRET',
-  'POSTGRES_PASSWORD_FILE',
-  'ROOT_ACCOUNT',
-  'TELEGRAM',
-  'TUNNEL_TOKEN',
-];
-
-
-
-
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -41,7 +20,7 @@ const buildEnvironmentFile = (config: IConfigFile, hasTunnelToken: boolean): str
   // iterate over the config properties
   Object.entries(config).forEach(([key, value]) => {
     // if the property is secret, set its path instead of the value
-    if (__SECRET_PROPERTIES.includes(key as IConfigSecretKey)) {
+    if (SECRET_PROPERTIES.includes(key as IConfigSecretKey)) {
       if (key === 'TUNNEL_TOKEN' && !hasTunnelToken) {
         env += `${key}=\n`;
       } else {
@@ -65,7 +44,7 @@ const buildEnvironmentFile = (config: IConfigFile, hasTunnelToken: boolean): str
  */
 const saveSecrets = (config: IConfigFile, hasTunnelToken: boolean): void => {
   clearSecrets();
-  __SECRET_PROPERTIES.forEach((secret) => {
+  SECRET_PROPERTIES.forEach((secret) => {
     if (secret === 'TUNNEL_TOKEN' && !hasTunnelToken) {
       return;
     }

@@ -1,4 +1,4 @@
-
+import { IConfigSecretKey } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -44,6 +44,24 @@ const QUOTE_ASSETS = ['USDT', 'USDC'];
  */
 const EXCHANGE_IDS = ['binance', 'bitfinex', 'kraken'];
 
+/**
+ * Secret Properties
+ * The list of properties that are considered secret and should not be saved in the environment
+ * file.
+ */
+const SECRET_PROPERTIES: IConfigSecretKey[] = [
+  'ALTCHA_SECRET',
+  'COOKIE_SECRET',
+  'ENCRYPTING_SECRET',
+  'EXCHANGE_CREDENTIALS',
+  'HASHING_SECRET',
+  'JWT_SECRET',
+  'POSTGRES_PASSWORD_FILE',
+  'ROOT_ACCOUNT',
+  'TELEGRAM',
+  'TUNNEL_TOKEN',
+];
+
 
 
 
@@ -60,4 +78,5 @@ export {
   BASE_ASSET,
   QUOTE_ASSETS,
   EXCHANGE_IDS,
+  SECRET_PROPERTIES,
 };
