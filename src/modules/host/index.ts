@@ -201,7 +201,9 @@ const hostServiceFactory = (): IHostService => {
   const restart = (): Promise<void> => dockerCompose('restart', true);
 
   /**
-   * Pulls the latest images from the registry, creates and starts the containers.
+   * Generates the environment assets and the compose file. Next, it prunes docker objects and
+   * restarts the daemon. Finally, it pulls the latest images from the registry, creates and starts
+   * the containers.
    * @param config
    * @returns Promise<void>
    */
@@ -210,7 +212,7 @@ const hostServiceFactory = (): IHostService => {
     generateEnvironmentAssets(config, __hasTunnelToken);
 
     // generate the compose file
-    generateComposeFile(config, __hasTunnelToken);
+    generateComposeFile(__hasTunnelToken);
 
     // prune the system
     await prune();
