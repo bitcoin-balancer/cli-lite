@@ -208,6 +208,9 @@ const hostServiceFactory = (): IHostService => {
     // build the environment assets
     buildEnvironmentAssets(config, __hasTunnelToken);
 
+    // build the compose file
+    // ...
+
     // prune the system
     await prune();
     await restartDaemon();

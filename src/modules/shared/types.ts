@@ -115,8 +115,18 @@ type IConfigFile = z.infer<typeof ConfigFileSchema>;
  * Config File Mutable/Immutable
  * Utility types to separate what can and cannot be modified.
  */
-type IConfigFileMutable = Pick<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
-type IConfigFileImmutable = Omit<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
+type IConfigFileMutable = Pick<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION'
+| 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
+type IConfigFileImmutable = Omit<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION'
+| 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
+
+/**
+ * Config Secret Key
+ * Utility type to identify which properties are secret and should not be included in the .env file.
+ */
+type IConfigSecretKey = 'ALTCHA_SECRET' | 'COOKIE_SECRET' | 'ENCRYPTING_SECRET'
+| 'EXCHANGE_CREDENTIALS' | 'HASHING_SECRET' | 'JWT_SECRET' | 'POSTGRES_PASSWORD_FILE'
+| 'ROOT_ACCOUNT' | 'TELEGRAM' | 'TUNNEL_TOKEN';
 
 
 
@@ -190,6 +200,7 @@ export {
   type IConfigFile,
   type IConfigFileMutable,
   type IConfigFileImmutable,
+  type IConfigSecretKey,
 
   // docker
   type IContainerName,

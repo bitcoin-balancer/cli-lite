@@ -9,6 +9,7 @@ import {
   type IPackageFile,
   ConfigFileSchema,
   IConfigFile,
+  IConfigSecretKey,
 } from '../types.js';
 
 /* ************************************************************************************************
@@ -86,10 +87,27 @@ const writeConfigFile = (config: IConfigFile): void => writeJSONFile(__CONFIG_FI
 const clearSecrets = (): void => deleteDirectory(__SECRETS_DIR_PATH);
 
 /**
+ * Writes the secret to a file in the secrets directory.
+ * @param key
+ * @param content
+ */
+const writeSecret = (key: IConfigSecretKey, content: string): void => (
+  writeTextFile(`${__SECRETS_DIR_PATH}/${key}`, content)
+);
+
+/**
  * Creates or updates the environment file (.env).
  * @param content
  */
 const writeEnvFile = (content: string): void => writeTextFile(__ENV_FILE_PATH, content);
+
+
+
+
+
+/* ************************************************************************************************
+ *                                          COMPOSE FILE                                          *
+ ************************************************************************************************ */
 
 /**
  * Creates or updates the compose file (compose.yaml).
@@ -114,6 +132,9 @@ export {
 
   // environment assets
   clearSecrets,
+  writeSecret,
   writeEnvFile,
+
+  // compose file
   writeComposeFile,
 };
