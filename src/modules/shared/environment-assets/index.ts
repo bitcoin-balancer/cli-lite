@@ -24,7 +24,7 @@ const buildEnvironmentFile = (config: IConfigFile, hasTunnelToken: boolean): str
       if (key === 'TUNNEL_TOKEN' && !hasTunnelToken) {
         env += `${key}=\n`;
       } else {
-        env += `${key}=${buildSecretPath(key as IConfigSecretKey)}\n`;
+        env += `${buildSecretPath(key as IConfigSecretKey)}\n`;
       }
     } else {
       env += `${key}=${stringifyValue(value)}\n`;
