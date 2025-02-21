@@ -11,7 +11,8 @@ import {
   IConfigFile,
 } from '../shared/types.js';
 import { readPackageFile } from '../shared/fs/index.js';
-import { buildEnvironmentAssets } from '../shared/environment-assets/index.js';
+import { generateEnvironmentAssets } from '../shared/environment-assets/index.js';
+import { generateComposeFile } from '../shared/compose-file/index.js';
 import {
   landscapeSysinfo,
   git,
@@ -205,11 +206,11 @@ const hostServiceFactory = (): IHostService => {
    * @returns Promise<void>
    */
   const up = async (config: IConfigFile): Promise<void> => {
-    // build the environment assets
-    buildEnvironmentAssets(config, __hasTunnelToken);
+    // generate the environment assets
+    generateEnvironmentAssets(config, __hasTunnelToken);
 
-    // build the compose file
-    // ...
+    // generate the compose file
+    generateComposeFile(config, __hasTunnelToken);
 
     // prune the system
     await prune();

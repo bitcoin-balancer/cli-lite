@@ -78,7 +78,7 @@ const saveSecrets = (config: IConfigFile, hasTunnelToken: boolean): void => {
  * @param config
  * @param hasTunnelToken
  */
-const buildEnvironmentAssets = (config: IConfigFile, hasTunnelToken: boolean): void => {
+const generateEnvironmentAssets = (config: IConfigFile, hasTunnelToken: boolean): void => {
   writeEnvFile(buildEnvironmentFile(config, hasTunnelToken));
   saveSecrets(config, hasTunnelToken);
 };
@@ -91,5 +91,5 @@ const buildEnvironmentAssets = (config: IConfigFile, hasTunnelToken: boolean): v
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
 export {
-  buildEnvironmentAssets,
+  generateEnvironmentAssets,
 };
