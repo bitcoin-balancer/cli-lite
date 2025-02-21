@@ -9,9 +9,15 @@ import {
   IContainerStates,
   IDockerProcess,
 } from '../shared/types.js';
-import { execute } from '../shared/command/index.js';
 import { readPackageFile } from '../shared/fs/index.js';
-import { git, npm } from './utils.js';
+import {
+  landscapeSysinfo,
+  git,
+  npm,
+  docker,
+  dockerCompose,
+  systemctl,
+} from './utils.js';
 import { IHostService } from './types.js';
 
 /* ************************************************************************************************
@@ -45,16 +51,14 @@ const hostServiceFactory = (): IHostService => {
 
 
   /* **********************************************************************************************
-   *                                           RETRIEVERS                                         *
+   *                                         MIST RETRIEVERS                                      *
    ********************************************************************************************** */
 
   /**
    * Executes the landscape-sysinfo command on the host machine and returns its results.
    * @returns Promise<string>
    */
-  const __getLandscapeSysinfo = async (): Promise<string> => (
-    execute('landscape-sysinfo', [], 'pipe')
-  );
+  const __getLandscapeSysinfo = async (): Promise<string> => landscapeSysinfo('', false);
 
   /**
    * Retrieves the latest version of the cli-lite package from the GitHub repository.
@@ -119,7 +123,7 @@ const hostServiceFactory = (): IHostService => {
    * @returns Promise<string[]>
    */
   const __getDockerProcessStatusRows = async (): Promise<string[]> => {
-    const ps = await execute('docker', ['ps'], 'pipe');
+    const ps = await docker('ps', false);
     if (ps && ps.length > 0) {
       return ps.split('\n').slice(1).filter((row) => row.length > 0);
     }
@@ -141,7 +145,7 @@ const hostServiceFactory = (): IHostService => {
     count: number = 15,
   ): Promise<string> => {
     try {
-      return await execute('docker', ['compose', 'logs', name, '--tail', String(count)], 'pipe');
+      return await dockerCompose(`logs ${name} --tail ${count}`, false);
     } catch (e) {
       return `Unable to extract logs for ${name}: ${extractMessage(e)}`;
     }
@@ -152,12 +156,11 @@ const hostServiceFactory = (): IHostService => {
    * @param name
    * @returns Promise<void>
    */
-  const susbcribeToLogs = (name?: IContainerName): Promise<void> => {
-    if (name) {
-      return execute('docker', ['compose', 'logs', name, '-f'], 'inherit');
-    }
-    return execute('docker', ['compose', 'logs', '-f'], 'inherit');
-  };
+  const susbcribeToLogs = (name?: IContainerName): Promise<void> => (
+    typeof name === 'string'
+      ? dockerCompose(`logs ${name} -f`, true)
+      : dockerCompose('logs -f', true)
+  );
 
   /**
    * Maintenance
@@ -167,15 +170,13 @@ const hostServiceFactory = (): IHostService => {
    * Removes all unused containers, networks and images (both dangling and unused).
    * @returns Promise<void>
    */
-  const prune = (): Promise<void> => (
-    execute('docker', ['system', 'prune', '--all', '--force'], 'inherit')
-  );
+  const prune = (): Promise<void> => docker('system prune --all --force', true);
 
   /**
    * Restarts Docker's Systemd service.
    * @returns Promise<void>
    */
-  const restartDaemon = (): Promise<void> => execute('systemctl', ['restart', 'docker'], 'inherit');
+  const restartDaemon = (): Promise<void> => systemctl('restart docker', true);
 
   /**
    * Containers
@@ -185,13 +186,13 @@ const hostServiceFactory = (): IHostService => {
    * Stops containers and removes containers, networks, volumes, and images created by up.
    * @returns Promise<void>
    */
-  const down = (): Promise<void> => execute('docker', ['compose', 'down'], 'inherit');
+  const down = (): Promise<void> => dockerCompose('down', true);
 
   /**
    * Restarts all stopped and running services.
    * @returns Promise<void>
    */
-  const restart = (): Promise<void> => execute('docker', ['compose', 'restart'], 'inherit');
+  const restart = (): Promise<void> => dockerCompose('restart', true);
 
   /**
    * Pulls the latest images from the registry, creates and starts the containers.
@@ -206,7 +207,7 @@ const hostServiceFactory = (): IHostService => {
     await restartDaemon();
 
     // pull the latest images from the registry and create the containers
-    return execute('docker', ['compose', 'up', '--pull', 'always', '--no-build', '--detach'], 'inherit');
+    return dockerCompose('up --pull always --no-build --detach', true);
   };
 
   /**
@@ -217,9 +218,7 @@ const hostServiceFactory = (): IHostService => {
    * Initializes a psql session in the postgres container.
    * @returns Promise<void>
    */
-  const psql = (): Promise<void> => (
-    execute('docker', ['compose', 'exec', '-it', 'postgres', 'psql', '-U', 'postgres'], 'inherit')
-  );
+  const psql = (): Promise<void> => dockerCompose('exec -it postgres psql -U postgres', true);
 
 
 
@@ -249,12 +248,11 @@ const hostServiceFactory = (): IHostService => {
   const __calculateContainerState = async (
     name: IContainerName,
     statusRows: string[],
-  ): Promise<IContainerState> => {
-    if (__isContainerRunning(name, statusRows)) {
-      return { running: true };
-    }
-    return { running: false, logs: await __getLatestContainerLogs(name) };
-  };
+  ): Promise<IContainerState> => (
+    __isContainerRunning(name, statusRows)
+      ? { running: true }
+      : { running: false, logs: await __getLatestContainerLogs(name) }
+  );
 
   /**
    * Calculates the state for every container.

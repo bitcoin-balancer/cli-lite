@@ -36,6 +36,19 @@ type IHostService = {
 
 
 
+/* ************************************************************************************************
+ *                                             TYPES                                              *
+ ************************************************************************************************ */
+
+/**
+ * Command Execution Return
+ * Utility type that represents the type that will be returned from a command execution.
+ */
+type ICommandExecutionReturn<T> = Promise<T extends true ? undefined : string>;
+
+
+
+
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
@@ -45,5 +58,5 @@ export type {
   IHostService,
 
   // types
-  // ...
+  ICommandExecutionReturn,
 };
