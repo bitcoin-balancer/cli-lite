@@ -182,9 +182,39 @@ npm start
   - <code>logs:gui</code> displays log output from the gui service
 
   - <code>logs:ct</code> displays log output from the cloudflared service
-  
+
   <br/>
 
+</details>
+
+<details>
+  <summary><code>prune</code></summary>
+
+  <br/>
+
+  Removes all unused containers, networks and images (both dangling and unused) with:
+
+  ```bash
+  docker system prune --all --force
+  ```
+
+  <br/>
+  
+</details>
+
+<details>
+  <summary><code>restart-daemon</code></summary>
+
+  <br/>
+
+  Restarts the Docker service on the host machine with:
+
+  ```bash
+  systemctl restart docker
+  ```
+
+  <br/>
+  
 </details>
 
 
