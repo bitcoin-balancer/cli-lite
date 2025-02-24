@@ -260,7 +260,7 @@ npm start
 
   <br/>
 
-  Downloads the latest version of cli-lite, installs its dependencies, and compiles it.
+  Downloads the latest version of `cli-lite`, installs its dependencies, and compiles it.
 
   <br/>
 
