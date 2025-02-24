@@ -55,21 +55,8 @@ npm start
 
 ## Getting Started
 
-1. [Create a DigitalOcean account](./docs/digital-ocean/index.md)
-1. [Set up a virtual machine (Droplet)](./docs/droplet/index.md)
+1. [Set up a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
 2. ...
-
-
-
-
-
-
-
-<br/><br/><br/>
-
-## Guides
-
-- ...
 
 
 
@@ -79,7 +66,27 @@ npm start
 
 ## CLI Actions
 
-...
+
+### Docker Compose
+
+<details>
+  <summary><code>up</code></summary>
+  <br/>
+   Generates the environment assets and the <code>compose.yaml</code> file. Next, it prunes docker objects and restarts the daemon. Finally, it pulls the latest images from the  registry, creates and starts the containers.
+
+  <br/>
+
+  When executed, after generating the environment assets and the compose file, it runs:
+  ```bash
+  docker system prune --all --force
+
+  systemctl restart docker
+
+  docker compose up --pull always --no-build --detach
+  ```
+  <br/>
+</details>
+
 
 
 
