@@ -71,7 +71,9 @@ npm start
 
 <details>
   <summary><code>up</code></summary>
+
   <br/>
+  
    Generates the environment assets and the <code>compose.yaml</code> file. Next, it prunes docker objects and restarts the daemon. Finally, it pulls the latest images from the  registry, creates and starts the containers.
 
   <br/>
@@ -84,14 +86,18 @@ npm start
 
   docker compose up --pull always --no-build --detach
   ```
+
   <br/>
+
 </details>
 
 
 <details>
   <summary><code>down</code></summary>
+
   <br/>
-   Stops containers and removes containers, networks, volumes, and images created by <code>up</code>.
+
+  Stops containers and removes containers, networks, volumes, and images created by <code>up</code>.
 
   <br/>
 
@@ -99,14 +105,18 @@ npm start
   ```bash
   docker compose down
   ```
+
   <br/>
+
 </details>
 
 
 <details>
   <summary><code>down-up</code></summary>
+
   <br/>
-   Stops containers and removes containers, networks, volumes, and images created by <code>up</code> with:
+
+  Stops containers and removes containers, networks, volumes, and images created by <code>up</code> with:
 
   <br/>
 
@@ -130,6 +140,24 @@ npm start
   <br/>
 
   <br/>
+</details>
+
+
+<details>
+  <summary><code>restart</code></summary>
+
+  <br/>
+
+  Restarts all stopped and running services with:
+
+  <br/>
+
+  ```bash
+  docker compose restart
+  ```
+
+  <br/>
+
 </details>
 
 
