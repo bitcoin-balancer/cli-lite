@@ -66,7 +66,6 @@ npm start
 
 ## CLI Actions
 
-
 ### Docker Compose
 
 <details>
@@ -217,6 +216,36 @@ npm start
   
 </details>
 
+
+
+### Configuration
+
+<details>
+  <summary><code>view-config</code></summary>
+
+  <br/>
+
+  Displays the data stored in the `config.json` file.
+
+  <br/>
+  
+</details>
+
+<details>
+  <summary><code>update-config-*</code></summary>
+
+  <br/>
+
+  Updates the mutable properties in the `config.json` file one at a time. The following properties are mutable and can be changed by this action:
+
+  - `GUI_URL`
+  - `TELEGRAM`
+  - `EXCHANGE_*`
+  - `TUNNEL_TOKEN`
+
+  <br/>
+  
+</details>
 
 
 
