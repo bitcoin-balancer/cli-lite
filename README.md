@@ -76,7 +76,7 @@ npm start
 
   <br/>
 
-  When executed, after generating the environment assets and the compose file, it runs:
+  When executed, after generating the environment assets and the `compose.yaml` file, it runs:
   ```bash
   docker system prune --all --force
 
@@ -87,6 +87,50 @@ npm start
   <br/>
 </details>
 
+
+<details>
+  <summary><code>down</code></summary>
+  <br/>
+   Stops containers and removes containers, networks, volumes, and images created by <code>up</code>.
+
+  <br/>
+
+  When executed, it runs:
+  ```bash
+  docker compose down
+  ```
+  <br/>
+</details>
+
+
+<details>
+  <summary><code>down-up</code></summary>
+  <br/>
+   Stops containers and removes containers, networks, volumes, and images created by <code>up</code> with:
+
+  <br/>
+
+  ```bash
+  docker compose down
+  ```
+
+  <br/>
+
+  Finally, it generates the environment assets, the `compose.yaml` file and runs: 
+
+  <br/>
+
+  ```bash
+  docker system prune --all --force
+
+  systemctl restart docker
+
+  docker compose up --pull always --no-build --detach
+  ```
+  <br/>
+
+  <br/>
+</details>
 
 
 
