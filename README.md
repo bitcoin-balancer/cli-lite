@@ -91,7 +91,6 @@ npm start
 
 </details>
 
-
 <details>
   <summary><code>down</code></summary>
 
@@ -109,7 +108,6 @@ npm start
   <br/>
 
 </details>
-
 
 <details>
   <summary><code>down-up</code></summary>
@@ -142,7 +140,6 @@ npm start
   <br/>
 </details>
 
-
 <details>
   <summary><code>restart</code></summary>
 
@@ -160,6 +157,35 @@ npm start
 
 </details>
 
+<details>
+  <summary><code>logs</code></summary>
+
+  <br/>
+
+  Displays and subscribes to the log output from all services. If a variation is provided, it narrows down the logs to a specific service.
+
+  ```bash
+  docker compose logs -f
+
+  # if a variation is provided
+  docker compose logs <variation> -f
+  ```
+
+  <br/>
+
+  The following variations are supported:
+
+  - <code>logs:postgres</code> displays log output from the postgres service
+
+  - <code>logs:api</code> displays log output from the api service
+
+  - <code>logs:gui</code> displays log output from the gui service
+
+  - <code>logs:ct</code> displays log output from the cloudflared service
+  
+  <br/>
+
+</details>
 
 
 
