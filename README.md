@@ -73,7 +73,7 @@ npm start
 
   <br/>
   
-   Generates the environment assets and the <code>compose.yaml</code> file. Next, it prunes docker objects and restarts the daemon. Finally, it pulls the latest images from the  registry, creates and starts the containers.
+  Generates the environment assets and the `compose.yaml` file. Next, it prunes docker objects and restarts the daemon. Finally, it pulls the latest images from the  registry, creates and starts the containers.
 
   <br/>
 
@@ -246,6 +246,57 @@ npm start
   <br/>
   
 </details>
+
+
+
+### CLI Management
+
+<details>
+  <summary><code>update-cli</code></summary>
+
+  <br/>
+
+  Downloads the latest version of cli-lite, installs its dependencies, and compiles it.
+
+  <br/>
+
+  When executed, it runs:
+
+  ```bash
+  git pull origin main
+
+  npm ci
+
+  npm run build
+  ```
+
+  <br/>
+  
+</details>
+
+
+
+### Database Management
+
+<details>
+  <summary><code>psql</code></summary>
+
+  <br/>
+
+  Starts the terminal-based front-end to PostgreSQL.
+
+  <br/>
+
+  When executed, it runs:
+
+  ```bash
+  docker compose exec -it postgres psql -U postgres
+  ```
+
+  <br/>
+  
+</details>
+
 
 
 
