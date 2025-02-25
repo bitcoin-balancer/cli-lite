@@ -55,9 +55,11 @@ npm start
 
 ## Getting Started
 
-1. [Setting up a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
+1. [Setup a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
 2. [Install dependencies](./docs/install-dependencies/index.md)
-3. ...
+3. [Install and configure the `cli-lite`](./docs/install-configure-cli-lite/index.md)
+4. [Setup a Cloudflare Tunnel (Optional)](./docs/setup-cloudflare-tunnel/index.md)
+5. [Setup Telegram (Optional)](./docs/setup-telegram/index.md)
 
 
 
