@@ -44,7 +44,7 @@ npm start
 ### Hardware
 
 - 1 CPU
-- 512 GB Memory
+- 512 MB Memory
 - 10 GB Storage
 
 
@@ -55,8 +55,9 @@ npm start
 
 ## Getting Started
 
-1. [Set up a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
-2. ...
+1. [Setting up a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
+2. [Install dependencies](./docs/install-dependencies/index.md)
+3. ...
 
 
 
