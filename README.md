@@ -18,9 +18,9 @@ With its intuitive syntax and comprehensive functionality, `cli-lite` streamline
 ## Usage
 
 Navigate into `cli-lite` directory and start the program:
+
 ```bash
-cd cli-lite
-npm start
+cd cli-lite && npm start
 ```
 
 
@@ -58,7 +58,7 @@ npm start
 1. [Setup a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
 2. [Install dependencies](./docs/install-dependencies/index.md)
 3. [Install and configure `cli-lite`](./docs/install-configure-cli-lite/index.md)
-4. [Setup a Cloudflare Tunnel (Optional)](./docs/setup-cloudflare-tunnel/index.md)
+4. [Setup a Cloudflare Tunnel](./docs/setup-cloudflare-tunnel/index.md)
 5. [Setup Telegram (Optional)](./docs/setup-telegram/index.md)
 
 

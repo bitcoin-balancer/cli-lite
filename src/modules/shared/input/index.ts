@@ -72,7 +72,7 @@ const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
   }),
   chatID: Number(await input({
     default: '0',
-    message: 'Enter the Telegram Bot Token - Leave 0 if not using Telegram',
+    message: 'Enter the Chat ID - Leave 0 if not enabling Telegram',
     validate: validateTelegramChatID,
   })),
 });
