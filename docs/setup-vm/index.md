@@ -37,9 +37,11 @@ The Balancer platform is lightweight and optimized to run efficiently with minim
 
 6. Then, choose **"Password"** as the **Authentication Method** and enter a strong password which will be used to interact with your virtual machine. 
 
-7. To finalize the creation process, scroll all the way down and click on "Create Droplet".
+7. Enable the **"Add improved metrics monitoring and alerting (free)"** feature
 
-8. Finally, navigate to your Droplet and turn it on by clicking on the **On/Off** toggle.
+8. To finalize the creation process, scroll all the way down and click on "Create Droplet".
+
+9. Finally, navigate to your Droplet and turn it on by clicking on the **On/Off** toggle.
 
 
 

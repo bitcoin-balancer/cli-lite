@@ -59,7 +59,7 @@ The `nvm` bash script can be installed as follows:
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
-# if the command above fails, run this one:
+# if the above command fails, run this one:
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
