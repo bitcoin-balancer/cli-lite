@@ -45,6 +45,14 @@ The Balancer platform is lightweight and optimized to run efficiently with minim
 
 
 
+<br/>
+
+## Interacting with your Droplet
+
+1. Navigate to ["Droplets"](https://cloud.digitalocean.com/droplets) and click on the Droplet that you just created.
+
+2. Click on the **"Console"**. Once the connection is established, you'll be granted access to your virtual machine.
+
 
 
 <br/><br/><br/>
