@@ -63,7 +63,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
-Once `nvm`'s installation is complete, install the version required by Balancer (Node.js `^22.3.0` & npm `^10.8.1`):
+Once `nvm`'s installation is complete, install the version required by Balancer (Node.js `^22.11.0` & npm `^10.9.0`):
 
 ```bash
 # install the specific version
