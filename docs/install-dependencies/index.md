@@ -4,9 +4,16 @@
 
 While Balancer operates independently without relying on third-party services, it does require certain open-source software to be installed on the host machine running the instance. Ensuring these dependencies are properly set up is essential for a smooth deployment.
 
+Before proceeding, run the following command to update the packages used by the OS:
+
+```bash
+sudo apt update -y && sudo apt upgrade -y && sudo apt-get update -y && sudo apt-get upgrade -y
+```
+
+**Tip:** you can paste into the terminal by pressiong `Ctrl+Shift` and then `V`.
 
 
-
+<br/>
 
 ## Installing [Docker](https://www.docker.com/)
 
@@ -31,7 +38,7 @@ sudo apt-get update
 2. Install the Docker Packages:
 
 ```bash
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 ```
 
 3. Verify that the installation is successful by running the `hello-world` image:
@@ -73,6 +80,9 @@ nvm install 22.11.0
 nvm use 22.11.0
 ```
 
+If you get the error **nvm: command not found** or see no feedback on the terminal, reboot the machine by running the following command: `reboot now`.
+
+
 Finally, verify the installation was successful:
 
 ```bash
@@ -82,11 +92,6 @@ node --version
 npm --version
 # 10.9.0
 ```
-
-### Troubleshooting
-
-If you get the error `nvm: command not found` or see no feedback on the terminal, reboot the machine.
-
 
 <br/>
 
