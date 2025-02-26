@@ -43,9 +43,9 @@ npm start
 
 ### Hardware
 
-- 1 CPU
-- 512 MB Memory
-- 10 GB Storage
+- 1 Shared CPU
+- 1 GB Memory
+- 25 GB Storage (Regular SSD)
 
 
 
@@ -57,7 +57,7 @@ npm start
 
 1. [Setup a virtual machine (DigitalOcean)](./docs/setup-vm/index.md)
 2. [Install dependencies](./docs/install-dependencies/index.md)
-3. [Install and configure the `cli-lite`](./docs/install-configure-cli-lite/index.md)
+3. [Install and configure `cli-lite`](./docs/install-configure-cli-lite/index.md)
 4. [Setup a Cloudflare Tunnel (Optional)](./docs/setup-cloudflare-tunnel/index.md)
 5. [Setup Telegram (Optional)](./docs/setup-telegram/index.md)
 

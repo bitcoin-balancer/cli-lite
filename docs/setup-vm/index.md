@@ -14,49 +14,38 @@ The first step is to create a DigitalOcean account. Ensure you use a strong pass
 
 <br/>
 
-## Choosing a virtual machine (Droplet)
+## Creating a virtual machine (Droplet)
 
-The Balancer platform is lightweight and optimized to run efficiently with minimal hardware requirements. To deploy an instance, ensure your virtual machine meets the following specifications:
+The Balancer platform is lightweight and optimized to run efficiently with minimal hardware requirements.
 
-- 1 vCPU
-- 512 MB Memory
-- 10 GB Storage
+1. Navigate to ["Droplets"](https://cloud.digitalocean.com/droplets) and click on the "Create Droplet" button.
 
-These specifications are sufficient to run Balancer smoothly while keeping costs low.
+2. Choosing the ideal **region** for your virtual machine depends on the exchange platform you use, as exchanges typically host their servers close to their user base to minimize latency.
 
+   To simplify the selection process, we’ve developed a tool that measures the request completion time for each region and exchange. To find the optimal region for your virtual machine, visit: [`request-latency`](https://github.com/bitcoin-balancer/request-latency).
 
+3. Next, choose **Ubuntu `^v24.10`** as the **OS (Operating System)** to be installed on the machine.
 
-<br/>
+4. Later, you'll be asked to select the **size** of the virtual machine. Balancer runs smoothly in a virtual machine with the following specifications (~$6/month at the time of writing this guide):
 
-## Selecting a region for your virtual machine
-
-The ideal region for your virtual machine depends on the exchange platform you use, as exchanges typically host their servers close to their user base to minimize latency.
-
-To simplify the selection process, we’ve developed a tool that measures the request completion time for each region.
-
-To find the optimal region for your instance, visit:
-
-[`request-latency`](https://github.com/bitcoin-balancer/request-latency)
+   - 1 Shared CPU
+   - 1 GB Memory
+   - 25 GB Storage (Regular SSD)
 
 
+5. Enable an automated **backup plan**. For more information, visit: [Daily, incremental backups to keep you moving confidently](https://www.digitalocean.com/products/backups).
 
-<br/>
+6. Then, choose **"Password"** as the **Authentication Method** and enter a strong password which will be used to interact with your virtual machine. 
 
-## Enabling automatic backups
+7. To finalize the creation process, scroll all the way down and click on "Create Droplet".
 
-DigitalOcean offers automatic daily backups for your Droplet, ensuring your data remains safe and allowing you to restore a previous snapshot if needed. This feature provides an extra layer of security in case something goes wrong. 
-
-For more information, visit:
-
-[Daily, incremental backups to keep you moving confidently](https://www.digitalocean.com/products/backups)
+8. Finally, navigate to your Droplet and turn it on by clicking on the **On/Off** toggle.
 
 
 
 
 
-<br/>
-<br/>
-<br/>
+<br/><br/><br/>
 
 # Next step
 
