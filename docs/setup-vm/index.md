@@ -12,6 +12,8 @@ The first step is to create a DigitalOcean account. Ensure you use a strong pass
 
 
 
+<br/>
+
 ## Choosing a virtual machine (Droplet)
 
 The Balancer platform is lightweight and optimized to run efficiently with minimal hardware requirements. To deploy an instance, ensure your virtual machine meets the following specifications:
@@ -24,6 +26,8 @@ These specifications are sufficient to run Balancer smoothly while keeping costs
 
 
 
+<br/>
+
 ## Selecting a region for your virtual machine
 
 The ideal region for your virtual machine depends on the exchange platform you use, as exchanges typically host their servers close to their user base to minimize latency.
@@ -35,6 +39,8 @@ To find the optimal region for your instance, visit:
 [`request-latency`](https://github.com/bitcoin-balancer/request-latency)
 
 
+
+<br/>
 
 ## Enabling automatic backups
 
