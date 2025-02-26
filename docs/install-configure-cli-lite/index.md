@@ -2,25 +2,23 @@
 
 # Installing `cli-lite`
 
-1. Navigate to your Droplet's page and click on the **"Console"** button
+1. Connect to your Droplet by navigating to its page and clicking on the **"Console"** button
 
-2. Once the connection has been established, pull the source code from [GitHub](https://github.com/bitcoin-balancer/cli-lite) by running:
+2. Once the connection has been established, download the source code from [GitHub](https://github.com/bitcoin-balancer/cli-lite) by running:
 
    ```bash
-   git pull git@github.com:bitcoin-balancer/cli-lite.git
+   git clone https://github.com/bitcoin-balancer/cli-lite.git
    ```
 
 3. Navigate to the `cli-lite` directory and install the dependencies:
 
    ```bash
-   cd cli-lite
-   npm install
+   cd cli-lite && npm install
    ```
 
 4. Finally, build and start the CLI:
    ```bash
-   npm run build
-   npm start
+   npm run build && npm start
    ```
 
 

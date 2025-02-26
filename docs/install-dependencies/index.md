@@ -65,19 +65,18 @@ The `nvm` bash script can be installed as follows:
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
 
-# if the above command fails, run this one:
+if the above command fails, run this one:
+
+```bash
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
-Once `nvm`'s installation is complete, install the version required by Balancer (Node.js `^22.11.0` & npm `^10.9.0`):
+Once `nvm`'s installation is complete, install and activate the version required by Balancer (Node.js `^22.11.0` & npm `^10.9.0`):
 
 ```bash
-# install the specific version
-nvm install 22.11.0
-
-# activate it
-nvm use 22.11.0
+nvm install 22.11.0 && nvm use 22.11.0
 ```
 
 If you get the error **nvm: command not found** or see no feedback on the terminal, reboot the machine by running the following command: `reboot now`.
@@ -86,10 +85,8 @@ If you get the error **nvm: command not found** or see no feedback on the termin
 Finally, verify the installation was successful:
 
 ```bash
-node --version
+node --version && npm --version
 # v22.11.0
-
-npm --version
 # 10.9.0
 ```
 
