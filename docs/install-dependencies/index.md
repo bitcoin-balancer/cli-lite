@@ -10,7 +10,7 @@ Before proceeding, run the following command to update the packages used by the 
 sudo apt update -y && sudo apt upgrade -y && sudo apt-get update -y && sudo apt-get upgrade -y
 ```
 
-**Tip:** you can paste into the terminal by pressiong `Ctrl+Shift` and then `V`.
+**Tip:** you can paste into the terminal by pressing `Ctrl+Shift` and then `V`.
 
 
 <br/>
@@ -67,7 +67,7 @@ The `nvm` bash script can be installed as follows:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
-if the above command fails, run this one:
+If the above command fails, run this one:
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash

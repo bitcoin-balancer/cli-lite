@@ -36,7 +36,7 @@ Balancer is lightweight and optimized to run efficiently with minimal hardware r
 
 8. To finalize the creation process, scroll all the way down and click on the **"Create Droplet"** button.
 
-9. Navigate to your Droplet and turn it on by clicking the **On/Off** toggle.
+9. Finally, navigate to your Droplet and turn it on by clicking the **On/Off** toggle.
 
 
 
