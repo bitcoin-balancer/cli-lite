@@ -1,6 +1,7 @@
 import {
   IConfigFile,
   IContainerName,
+  IContainerState,
   IDockerProcess,
   IPackageFile,
 } from '../shared/types.js';
@@ -35,7 +36,7 @@ type IHostService = {
   psql: () => Promise<void>;
 
   // initializer
-  initialize: (hasTunnelToken: boolean) => Promise<void>;
+  initialize: () => Promise<void>;
 };
 
 
@@ -51,7 +52,11 @@ type IHostService = {
  */
 type ICommandExecutionReturn<T> = Promise<T extends true ? undefined : string>;
 
-
+/**
+ * Container State Tuple
+ * Utility type that represents a tuple containing the name of a container and its state.
+ */
+type IContainerStateTuple = Array<[IContainerName, IContainerState]>;
 
 
 
@@ -64,4 +69,5 @@ export type {
 
   // types
   ICommandExecutionReturn,
+  IContainerStateTuple,
 };

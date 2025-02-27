@@ -1,4 +1,4 @@
-import { IConfigSecretKey } from './types.js';
+import { IConfigSecretKey, IContainerName } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -62,6 +62,12 @@ const SECRET_PROPERTIES: IConfigSecretKey[] = [
   'TUNNEL_TOKEN',
 ];
 
+/**
+ * Container Names
+ * The list of container names (services) that are used in the system.
+ */
+const CONTAINER_NAMES: IContainerName[] = ['postgres', 'api', 'gui', 'ct'];
+
 
 
 
@@ -79,4 +85,5 @@ export {
   QUOTE_ASSETS,
   EXCHANGE_IDS,
   SECRET_PROPERTIES,
+  CONTAINER_NAMES,
 };

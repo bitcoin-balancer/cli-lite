@@ -8,10 +8,9 @@ import { ICategoryMenuItem, IDecodedMenuAction } from './types.js';
 
 /**
  * Builds the CLI's menu ready to be displayed.
- * @param hasTunnelToken
  * @returns ICategoryMenuItem[]
  */
-const buildMenu = (hasTunnelToken: boolean, dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
+const buildMenu = (dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
   {
     name: 'Docker',
     description: 'Run docker compose commands',
@@ -54,16 +53,11 @@ const buildMenu = (hasTunnelToken: boolean, dockerProcess: IDockerProcess): ICat
         value: 'logs:gui',
         description: 'Displays log output from the gui service',
       },
-      ...(hasTunnelToken
-        ? [
-          {
-            value: 'logs:ct',
-            description: 'Displays log output from the ct service',
-          },
-          new Separator(),
-        ]
-        : [new Separator()]
-      ),
+      {
+        value: 'logs:ct',
+        description: 'Displays log output from the ct service',
+      },
+      new Separator(),
       {
         value: 'prune',
         description: 'Remove all unused containers, networks and images (both dangling and unused)',

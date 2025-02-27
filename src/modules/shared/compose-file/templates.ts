@@ -59,12 +59,9 @@ const generatePOSTGRESService = (): string => {
 
 /**
  * Generates the content for the api service.
- * @param testMode
- * @param restoreMode
- * @param hasTunnelToken
  * @returns string
  */
-const generateAPIService = (hasTunnelToken: boolean): string => {
+const generateAPIService = (): string => {
   let _ = '';
   _ += '  api:\n';
   _ += '    container_name: balancer-api\n';
@@ -90,7 +87,7 @@ const generateAPIService = (hasTunnelToken: boolean): string => {
   _ += '      - GUI_URL=${GUI_URL}\n';
   _ += '      - TEST_MODE=false\n';
   _ += '      - RESTORE_MODE=false\n';
-  _ += `      - HAS_TUNNEL_TOKEN=${hasTunnelToken}\n`;
+  _ += '      - HAS_TUNNEL_TOKEN=true\n';
   _ += '      - API_PORT=5075\n';
   _ += '      - POSTGRES_HOST=${POSTGRES_HOST}\n';
   _ += '      - POSTGRES_USER=${POSTGRES_USER}\n';

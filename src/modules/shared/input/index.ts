@@ -11,6 +11,7 @@ import {
   validateAPIKey,
   validateSecretKey,
   validateTelegramChatID,
+  validateTunnelToken,
   validateURL,
 } from './validations.js';
 
@@ -20,17 +21,13 @@ import {
 
 /**
  * Displays the CLI menu and returns the chosen, decoded action.
- * @param hasTunnelToken
  * @returns Promise<IDecodedMenuAction>
  */
-const displayMenuInput = async (
-  hasTunnelToken: boolean,
-  dockerProcess: IDockerProcess,
-): Promise<IDecodedMenuAction> => {
+const displayMenuInput = async (dockerProcess: IDockerProcess): Promise<IDecodedMenuAction> => {
   // display the categories menu
   const chosenCategory = await select({
     message: 'Select a category',
-    choices: buildMenu(hasTunnelToken, dockerProcess),
+    choices: buildMenu(dockerProcess),
     pageSize: 100,
     loop: false,
   });
@@ -119,7 +116,7 @@ const displayExchangeCredentialsInput = async (id: string): Promise<IExchangeCre
  * @returns Promise<string>
  */
 const displayTunnelTokenInput = async (): Promise<string> => (
-  input({ message: 'Enter the Tunnel Token - Leave blank if not using a tunnel' })
+  input({ message: 'Enter the Tunnel Token', validate: validateTunnelToken })
 );
 
 

@@ -21,7 +21,6 @@ type IConfigService = {
 
   // utils
   requiresInitialization: () => boolean;
-  hasTunnelToken: () => boolean;
 
   // config management
   initializeConfig: (config: IConfigFileMutable) => void;

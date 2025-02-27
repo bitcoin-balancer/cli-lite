@@ -13,9 +13,7 @@ import { ConfigService } from './modules/config/index.js';
  */
 const main = async () => {
   // initialize the modules
-  await ConfigService.initialize();
-  const hasTunnelToken = ConfigService.hasTunnelToken();
-  await HostService.initialize(hasTunnelToken);
+  await Promise.all([ConfigService.initialize(), HostService.initialize()]);
 
   // print the header
   printHeader(
@@ -28,7 +26,7 @@ const main = async () => {
   // check if the configuration requires initialization. Otherwise, display the menu
   const action = ConfigService.requiresInitialization()
     ? { id: 'init-config' }
-    : await displayMenuInput(hasTunnelToken, HostService.dockerProcess);
+    : await displayMenuInput(HostService.dockerProcess);
 
   // execute the chosen action
   const actionModule = await import(`./actions/${action.id}.js`);

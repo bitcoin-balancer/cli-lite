@@ -1,5 +1,5 @@
+import { SECRET_PROPERTIES } from '../constants.js';
 import { writeComposeFile } from '../fs/index.js';
-import { getSecretProperties } from './utils.js';
 import {
   generateAPIService,
   generateCTService,
@@ -15,9 +15,8 @@ import {
 
 /**
  * Builds and stores the compose.yaml file based on the configuration file.
- * @param hasTunnelToken
  */
-const generateComposeFile = (hasTunnelToken: boolean): void => {
+const generateComposeFile = (): void => {
   // header
   let _ = 'name: balancer\n\n';
   _ += 'services:\n\n';
@@ -26,23 +25,21 @@ const generateComposeFile = (hasTunnelToken: boolean): void => {
   _ += generatePOSTGRESService();
   _ += '\n\n\n';
 
-  _ += generateAPIService(hasTunnelToken);
+  _ += generateAPIService();
   _ += '\n\n\n';
 
   _ += generateGUIService();
-  _ += hasTunnelToken ? '\n\n\n' : '\n\n\n\n\n';
+  _ += '\n\n\n';
 
-  if (hasTunnelToken) {
-    _ += generateCTService();
-    _ += '\n\n\n\n\n';
-  }
+  _ += generateCTService();
+  _ += '\n\n\n\n\n';
 
   // volumes
   _ += generateVolumes();
   _ += '\n\n\n\n\n';
 
   // secrets
-  _ += generateSecrets(getSecretProperties(hasTunnelToken));
+  _ += generateSecrets(SECRET_PROPERTIES);
 
   // finally, save the file
   writeComposeFile(_);

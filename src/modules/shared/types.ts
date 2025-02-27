@@ -159,10 +159,7 @@ type IContainerState = {
   }
 );
 type IContainerStates = {
-  'postgres': IContainerState;
-  'api': IContainerState;
-  'gui': IContainerState;
-  'ct'?: IContainerState;
+  [key in IContainerName]: IContainerState;
 };
 
 /**

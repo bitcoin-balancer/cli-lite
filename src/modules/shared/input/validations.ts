@@ -40,6 +40,15 @@ const validateSecretKey = (val: string): boolean | string => (
   val.length > 0 ? true : 'Please enter a valid secret key'
 );
 
+/**
+ * Ensures the given string is a valid tunnel token. Returns a string if it isn't.
+ * @param val
+ * @returns boolean | string
+ */
+const validateTunnelToken = (val: string): boolean | string => (
+  val.length > 0 ? true : 'Please enter a valid tunnel token'
+);
+
 
 
 
@@ -52,4 +61,5 @@ export {
   validateTelegramChatID,
   validateAPIKey,
   validateSecretKey,
+  validateTunnelToken,
 };

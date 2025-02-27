@@ -10,6 +10,7 @@ import {
   IDockerProcess,
   IConfigFile,
 } from '../shared/types.js';
+import { CONTAINER_NAMES } from '../shared/constants.js';
 import { readPackageFile } from '../shared/fs/index.js';
 import { generateEnvironmentAssets } from '../shared/environment-assets/index.js';
 import { generateComposeFile } from '../shared/compose-file/index.js';
@@ -21,7 +22,7 @@ import {
   dockerCompose,
   systemctl,
 } from './utils.js';
-import { IHostService } from './types.js';
+import { IContainerStateTuple, IHostService } from './types.js';
 
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
@@ -36,9 +37,6 @@ const hostServiceFactory = (): IHostService => {
   /* **********************************************************************************************
    *                                          PROPERTIES                                          *
    ********************************************************************************************** */
-
-  // true if the config has a valid tunnel token
-  let __hasTunnelToken: boolean;
 
   // the cli-lite's package.json file
   let __packageFile: IPackageFile;
@@ -209,10 +207,10 @@ const hostServiceFactory = (): IHostService => {
    */
   const up = async (config: IConfigFile): Promise<void> => {
     // generate the environment assets
-    generateEnvironmentAssets(config, __hasTunnelToken);
+    generateEnvironmentAssets(config);
 
     // generate the compose file
-    generateComposeFile(__hasTunnelToken);
+    generateComposeFile();
 
     // prune the system
     await prune();
@@ -268,38 +266,27 @@ const hostServiceFactory = (): IHostService => {
 
   /**
    * Calculates the state for every container.
-   * @param hasTunnelToken
-   * @returns Promise<Array<[IContainerName, IContainerState]>>
+   * @returns Promise<IContainerStateTuple>
    */
-  const __calculateContainerStates = async (
-    hasTunnelToken: boolean,
-  ): Promise<Array<[IContainerName, IContainerState]>> => {
+  const __calculateContainerStates = async (): Promise<IContainerStateTuple> => {
     // retrieve the status of the Docker Process
     const statusRows = await __getDockerProcessStatusRows();
 
-    // calculate the state for each container
-    const states: Array<[IContainerName, IContainerState]> = [
-      ['postgres', await __calculateContainerState('postgres', statusRows)],
-      ['api', await __calculateContainerState('api', statusRows)],
-      ['gui', await __calculateContainerState('gui', statusRows)],
-    ];
-    if (hasTunnelToken) {
-      states.push(['ct', await __calculateContainerState('ct', statusRows)]);
-    }
+    // calculate the state for each service
+    const states = await Promise.all(
+      CONTAINER_NAMES.map((name) => __calculateContainerState(name, statusRows)),
+    );
 
-    // finally, return the states
-    return states;
+    // finally, return the state tuples
+    return states.map((state, i) => [CONTAINER_NAMES[i], state]);
   };
 
   /**
    * Calculates the state of the Docker Process based on the status of the containers.
-   * @param hasTunnelToken
    * @returns Promise<IDockerProcess>
    */
-  const __calculateDockerProcessState = async (
-    hasTunnelToken: boolean,
-  ): Promise<IDockerProcess> => {
-    const states = await __calculateContainerStates(hasTunnelToken);
+  const __calculateDockerProcessState = async (): Promise<IDockerProcess> => {
+    const states = await __calculateContainerStates();
     return {
       allRunning: !states.some(([, value]) => value.running === false),
       allDown: !states.some(([, value]) => value.running === true),
@@ -311,10 +298,7 @@ const hostServiceFactory = (): IHostService => {
    * Initializes the essential data required by the Host Service.
    * @returns Promise<void>
    */
-  const initialize = async (hasTunnelToken: boolean): Promise<void> => {
-    // true if the platform is making use of a cloudflare tunnel
-    __hasTunnelToken = hasTunnelToken;
-
+  const initialize = async (): Promise<void> => {
     // retrieve the package.json file
     __packageFile = readPackageFile();
 
@@ -329,7 +313,7 @@ const hostServiceFactory = (): IHostService => {
     }
 
     // retrieve the state of the Docker Containers
-    __dockerProcess = await __calculateDockerProcessState(hasTunnelToken);
+    __dockerProcess = await __calculateDockerProcessState();
   };
 
 
