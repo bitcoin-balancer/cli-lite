@@ -49,13 +49,7 @@ const generateEnvironmentAssets = (config: IConfigFile): void => {
   __saveSecrets(config);
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  generateEnvironmentAssets,
-};
+export { generateEnvironmentAssets };

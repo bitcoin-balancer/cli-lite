@@ -31,7 +31,7 @@ type ICategoryMenuItem = {
   description: string;
 
   // the list of actions in the category
-  value: (IActionMenuItem | Separator)[]
+  value: (IActionMenuItem | Separator)[];
 
   // whether the action is disabled or not
   disabled?: boolean;
@@ -44,21 +44,13 @@ type ICategoryMenuItem = {
  */
 type IDecodedMenuAction = {
   // the id of the action that will be executed
-  id: string,
+  id: string;
 
   // optional variation of an action
-  variation?: string,
+  variation?: string;
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export type {
-  IActionMenuItem,
-  ICategoryMenuItem,
-  IDecodedMenuAction,
-};
+export type { IActionMenuItem, ICategoryMenuItem, IDecodedMenuAction };

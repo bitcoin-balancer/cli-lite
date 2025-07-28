@@ -18,10 +18,6 @@ const progressPrinterFactory = (action: string, steps: string[]): IProgressPrint
   // the steps that will be printed
   let __currentStep = 1;
 
-
-
-
-
   /* **********************************************************************************************
    *                                            ACTIONS                                           *
    ********************************************************************************************** */
@@ -33,14 +29,12 @@ const progressPrinterFactory = (action: string, steps: string[]): IProgressPrint
     if (__currentStep > steps.length) {
       console.log(`\n\nThe action '${action}' was executed successfully!`);
     } else {
-      console.log(`${__currentStep > 1 ? '\n\n' : ''}${__currentStep}/${steps.length}) ${steps[__currentStep - 1]}`);
+      console.log(
+        `${__currentStep > 1 ? '\n\n' : ''}${__currentStep}/${steps.length}) ${steps[__currentStep - 1]}`,
+      );
       __currentStep += 1;
     }
   };
-
-
-
-
 
   /* **********************************************************************************************
    *                                         MODULE BUILD                                         *
@@ -54,13 +48,7 @@ const progressPrinterFactory = (action: string, steps: string[]): IProgressPrint
   });
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  progressPrinterFactory,
-};
+export { progressPrinterFactory };

@@ -23,12 +23,14 @@ const buildMenu = (dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
       new Separator(),
       {
         value: 'down',
-        description: 'Stops containers and removes containers, networks, volumes, and images created by up',
+        description:
+          'Stops containers and removes containers, networks, volumes, and images created by up',
         disabled: dockerProcess.allDown,
       },
       {
         value: 'down-up',
-        description: 'Stops containers and removes containers, networks, volumes, and images created by up. Afterwards, it pulls the latest images from the registry, creates and starts the containers',
+        description:
+          'Stops containers and removes containers, networks, volumes, and images created by up. Afterwards, it pulls the latest images from the registry, creates and starts the containers',
         disabled: dockerProcess.allDown,
       },
       {
@@ -91,7 +93,8 @@ const buildMenu = (dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
       },
       {
         value: 'update-config:EXCHANGE_*',
-        description: 'Update the data stored in the EXCHANGE_CONFIGURATION & EXCHANGE_CREDENTIALS properties',
+        description:
+          'Update the data stored in the EXCHANGE_CONFIGURATION & EXCHANGE_CREDENTIALS properties',
         disabled: !dockerProcess.allDown,
       },
       {
@@ -107,7 +110,8 @@ const buildMenu = (dockerProcess: IDockerProcess): ICategoryMenuItem[] => [
     value: [
       {
         value: 'update-cli',
-        description: 'Downloads the latest version of cli-lite, installs its dependencies, and compiles it.',
+        description:
+          'Downloads the latest version of cli-lite, installs its dependencies, and compiles it.',
       },
     ],
   },
@@ -138,10 +142,6 @@ const decodeMenuAction = (action: string): IDecodedMenuAction => {
   }
   return { id: action };
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

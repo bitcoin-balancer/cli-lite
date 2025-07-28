@@ -55,9 +55,8 @@ const displayURLInput = (message: string) => input({ message, validate: validate
  * Displays the GUI URL input prompt.
  * @returns Promise<string>
  */
-const displayGUIURLInput = (): Promise<string> => (
-  displayURLInput('Enter the GUI\'s URL. e.g. https://balancer.jesusgraterol.dev')
-);
+const displayGUIURLInput = (): Promise<string> =>
+  displayURLInput("Enter the GUI's URL. e.g. https://balancer.jesusgraterol.dev");
 
 /**
  * Displays the TELEGRAM input prompt.
@@ -67,22 +66,25 @@ const displayTelegramInput = async (): Promise<ITelegramConfig> => ({
   token: await input({
     message: 'Enter the Telegram Bot Token - Leave blank if not using Telegram',
   }),
-  chatID: Number(await input({
-    default: '0',
-    message: 'Enter the Chat ID - Leave 0 if not enabling Telegram',
-    validate: validateTelegramChatID,
-  })),
+  chatID: Number(
+    await input({
+      default: '0',
+      message: 'Enter the Chat ID - Leave 0 if not enabling Telegram',
+      validate: validateTelegramChatID,
+    }),
+  ),
 });
 
 /**
  * Displays the input prompt to select an exchange ID.
  * @returns Promise<string>
  */
-const displayExchangeIDInput = (message?: string, choices?: string[]): Promise<string> => select({
-  message: typeof message === 'string' ? message : 'Select an exchange',
-  choices: Array.isArray(choices) ? choices : EXCHANGE_IDS,
-  loop: false,
-});
+const displayExchangeIDInput = (message?: string, choices?: string[]): Promise<string> =>
+  select({
+    message: typeof message === 'string' ? message : 'Select an exchange',
+    choices: Array.isArray(choices) ? choices : EXCHANGE_IDS,
+    loop: false,
+  });
 
 /**
  * Displays the EXCHANGE_CONFIGURATION input prompt.
@@ -95,10 +97,19 @@ const displayExchangeConfigurationInput = async (): Promise<IExchangeConfigurati
     choices: QUOTE_ASSETS,
     loop: false,
   }),
-  window: await displayExchangeIDInput('Select the exchange that will be used by the Window Indicator'),
-  liquidity: await displayExchangeIDInput('Select the exchange that will be used by the Liquidity Indicator'),
-  coins: await displayExchangeIDInput('Select the exchange that will be used by the Coins Indicator'),
-  trading: await displayExchangeIDInput('Select the exchange that will be used by Balancer to trade', ['binance']),
+  window: await displayExchangeIDInput(
+    'Select the exchange that will be used by the Window Indicator',
+  ),
+  liquidity: await displayExchangeIDInput(
+    'Select the exchange that will be used by the Liquidity Indicator',
+  ),
+  coins: await displayExchangeIDInput(
+    'Select the exchange that will be used by the Coins Indicator',
+  ),
+  trading: await displayExchangeIDInput(
+    'Select the exchange that will be used by Balancer to trade',
+    ['binance'],
+  ),
 });
 
 /**
@@ -115,13 +126,8 @@ const displayExchangeCredentialsInput = async (id: string): Promise<IExchangeCre
  * Displays the TUNNEL_TOKEN input prompt.
  * @returns Promise<string>
  */
-const displayTunnelTokenInput = async (): Promise<string> => (
-  input({ message: 'Enter the Tunnel Token', validate: validateTunnelToken })
-);
-
-
-
-
+const displayTunnelTokenInput = async (): Promise<string> =>
+  input({ message: 'Enter the Tunnel Token', validate: validateTunnelToken });
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

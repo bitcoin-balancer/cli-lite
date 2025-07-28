@@ -13,11 +13,8 @@ import { ICommandExecutionReturn } from './types.js';
  * @param inherit
  * @returns Promise<T>
  */
-const __execute = <T>(
-  command: string,
-  args: string,
-  inherit: boolean,
-): Promise<T> => execute(command, args.split(' '), inherit ? 'inherit' : 'pipe') as Promise<T>;
+const __execute = <T>(command: string, args: string, inherit: boolean): Promise<T> =>
+  execute(command, args.split(' '), inherit ? 'inherit' : 'pipe') as Promise<T>;
 
 /**
  * Executes a landscape-sysinfo command on the host machine.
@@ -30,16 +27,14 @@ const landscapeSysinfo = async <T extends boolean>(
   inherit: T,
 ): ICommandExecutionReturn<T> => __execute('landscape-sysinfo', args, inherit);
 
-
 /**
  * Executes a git command on the host machine.
  * @param args
  * @param inherit
  * @returns ICommandExecutionReturn<T>
  */
-const git = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> => (
-  __execute('git', args, inherit)
-);
+const git = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> =>
+  __execute('git', args, inherit);
 
 /**
  * Executes a npm command on the host machine.
@@ -47,9 +42,8 @@ const git = async <T extends boolean>(args: string, inherit: T): ICommandExecuti
  * @param inherit
  * @returns ICommandExecutionReturn<T>
  */
-const npm = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> => (
-  __execute('npm', args, inherit)
-);
+const npm = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> =>
+  __execute('npm', args, inherit);
 
 /**
  * Executes a docker command on the host machine.
@@ -57,9 +51,8 @@ const npm = async <T extends boolean>(args: string, inherit: T): ICommandExecuti
  * @param inherit
  * @returns ICommandExecutionReturn<T>
  */
-const docker = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> => (
-  __execute('docker', args, inherit)
-);
+const docker = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> =>
+  __execute('docker', args, inherit);
 
 /**
  * Executes a docker compose command on the host machine.
@@ -78,14 +71,8 @@ const dockerCompose = async <T extends boolean>(
  * @param inherit
  * @returns ICommandExecutionReturn<T>
  */
-const systemctl = async <T extends boolean>(
-  args: string,
-  inherit: T,
-): ICommandExecutionReturn<T> => __execute('systemctl', args, inherit);
-
-
-
-
+const systemctl = async <T extends boolean>(args: string, inherit: T): ICommandExecutionReturn<T> =>
+  __execute('systemctl', args, inherit);
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

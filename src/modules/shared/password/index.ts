@@ -8,10 +8,6 @@ import { generate } from 'generate-password';
 // when using one of these values in a .env file.
 const __EXCLUDE_CHARACTERS = '"\'={}`$';
 
-
-
-
-
 /* ************************************************************************************************
  *                                         IMPLEMENTATION                                         *
  ************************************************************************************************ */
@@ -32,23 +28,18 @@ const generatePassword = (
   includeLowerCase: boolean,
   includeUpperCase: boolean,
   includeSymbols: boolean,
-): string => generate({
-  length: passwordLength,
-  numbers: includeNumbers,
-  lowercase: includeLowerCase,
-  uppercase: includeUpperCase,
-  symbols: includeSymbols,
-  exclude: __EXCLUDE_CHARACTERS,
-  strict: true,
-});
-
-
-
-
+): string =>
+  generate({
+    length: passwordLength,
+    numbers: includeNumbers,
+    lowercase: includeLowerCase,
+    uppercase: includeUpperCase,
+    symbols: includeSymbols,
+    exclude: __EXCLUDE_CHARACTERS,
+    strict: true,
+  });
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  generatePassword,
-};
+export { generatePassword };

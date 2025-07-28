@@ -1,9 +1,4 @@
-import {
-  deleteDirectory,
-  readJSONFile,
-  writeJSONFile,
-  writeTextFile,
-} from 'fs-utils-sync';
+import { deleteDirectory, readJSONFile, writeJSONFile, writeTextFile } from 'fs-utils-sync';
 import {
   PackageFileSchema,
   type IPackageFile,
@@ -31,10 +26,6 @@ const __ENV_FILE_PATH = '.env';
 // the path to the compose file
 const __COMPOSE_FILE_PATH = 'compose.yaml';
 
-
-
-
-
 /* ************************************************************************************************
  *                                          PACKAGE FILE                                          *
  ************************************************************************************************ */
@@ -45,13 +36,8 @@ const __COMPOSE_FILE_PATH = 'compose.yaml';
  * @throws
  * - if the file does not exist or it doesn't have the required properties
  */
-const readPackageFile = (): IPackageFile => PackageFileSchema.parse(
-  readJSONFile(__PACKAGE_FILE_PATH),
-);
-
-
-
-
+const readPackageFile = (): IPackageFile =>
+  PackageFileSchema.parse(readJSONFile(__PACKAGE_FILE_PATH));
 
 /* ************************************************************************************************
  *                                           CONFIG FILE                                          *
@@ -63,19 +49,13 @@ const readPackageFile = (): IPackageFile => PackageFileSchema.parse(
  * @throws
  * - if the file does not exist or it doesn't have the required properties
  */
-const readConfigFile = (): IConfigFile => ConfigFileSchema.parse(
-  readJSONFile(__CONFIG_FILE_PATH),
-);
+const readConfigFile = (): IConfigFile => ConfigFileSchema.parse(readJSONFile(__CONFIG_FILE_PATH));
 
 /**
  * Writes the config object to the config.json file.
  * @param config
  */
 const writeConfigFile = (config: IConfigFile): void => writeJSONFile(__CONFIG_FILE_PATH, config);
-
-
-
-
 
 /* ************************************************************************************************
  *                                       ENVIRONMENT ASSETS                                       *
@@ -91,19 +71,14 @@ const clearSecrets = (): void => deleteDirectory(__SECRETS_DIR_PATH);
  * @param key
  * @param content
  */
-const writeSecret = (key: IConfigSecretKey, content: string): void => (
-  writeTextFile(`${__SECRETS_DIR_PATH}/${key}.txt`, content)
-);
+const writeSecret = (key: IConfigSecretKey, content: string): void =>
+  writeTextFile(`${__SECRETS_DIR_PATH}/${key}.txt`, content);
 
 /**
  * Creates or updates the environment file (.env).
  * @param content
  */
 const writeEnvFile = (content: string): void => writeTextFile(__ENV_FILE_PATH, content);
-
-
-
-
 
 /* ************************************************************************************************
  *                                          COMPOSE FILE                                          *
@@ -114,10 +89,6 @@ const writeEnvFile = (content: string): void => writeTextFile(__ENV_FILE_PATH, c
  * @param content
  */
 const writeComposeFile = (content: string): void => writeTextFile(__COMPOSE_FILE_PATH, content);
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

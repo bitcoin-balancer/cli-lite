@@ -8,10 +8,7 @@ import { HostService } from '../modules/host/index.js';
  * it pulls the latest images from the registry, creates and starts the containers
  */
 export default async () => {
-  const progress = progressPrinterFactory('down-up', [
-    'Executing \'down\'...',
-    'Executing \'up\'...',
-  ]);
+  const progress = progressPrinterFactory('down-up', ["Executing 'down'...", "Executing 'up'..."]);
   progress.step();
   await HostService.down();
   progress.step();

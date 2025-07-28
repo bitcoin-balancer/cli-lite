@@ -39,9 +39,6 @@ type IHostService = {
   initialize: () => Promise<void>;
 };
 
-
-
-
 /* ************************************************************************************************
  *                                             TYPES                                              *
  ************************************************************************************************ */
@@ -57,8 +54,6 @@ type ICommandExecutionReturn<T> = Promise<T extends true ? undefined : string>;
  * Utility type that represents a tuple containing the name of a container and its state.
  */
 type IContainerStateTuple = Array<[IContainerName, IContainerState]>;
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

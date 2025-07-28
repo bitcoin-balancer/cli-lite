@@ -33,8 +33,6 @@ const main = async () => {
   await actionModule.default(action.variation);
 };
 
-
-
 /**
  * Executes the main function in a loop until it errors or is manually stopped by the user.
  */
