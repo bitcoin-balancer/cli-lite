@@ -72,7 +72,6 @@ cd cli-lite && npm start
 
 <details>
   <summary><code>up</code></summary>
-
   <br/>
   
   Generates the environment assets and the `compose.yaml` file. Next, it prunes docker objects and restarts the daemon. Finally, it pulls the latest images from the  registry, creates and starts the containers.
@@ -87,14 +86,11 @@ cd cli-lite && npm start
 
   docker compose up --pull always --no-build --detach
   ```
-
   <br/>
-
 </details>
 
 <details>
   <summary><code>down</code></summary>
-
   <br/>
 
   Stops containers and removes containers, networks, volumes, and images created by <code>up</code>.
@@ -105,14 +101,11 @@ cd cli-lite && npm start
   ```bash
   docker compose down
   ```
-
   <br/>
-
 </details>
 
 <details>
   <summary><code>down-up</code></summary>
-
   <br/>
 
   Stops containers and removes containers, networks, volumes, and images created by <code>up</code> with:
@@ -137,13 +130,10 @@ cd cli-lite && npm start
   docker compose up --pull always --no-build --detach
   ```
   <br/>
-
-  <br/>
 </details>
 
 <details>
   <summary><code>restart</code></summary>
-
   <br/>
 
   Restarts all stopped and running services with:
@@ -153,14 +143,11 @@ cd cli-lite && npm start
   ```bash
   docker compose restart
   ```
-
   <br/>
-
 </details>
 
 <details>
   <summary><code>logs</code></summary>
-
   <br/>
 
   Displays and subscribes to the log output from all services. If a variation is provided, it narrows down the logs to a specific service.
@@ -185,12 +172,10 @@ cd cli-lite && npm start
   - <code>logs:ct</code> displays log output from the cloudflared service
 
   <br/>
-
 </details>
 
 <details>
   <summary><code>prune</code></summary>
-
   <br/>
 
   Removes all unused containers, networks and images (both dangling and unused) with:
@@ -198,14 +183,11 @@ cd cli-lite && npm start
   ```bash
   docker system prune --all --force
   ```
-
   <br/>
-  
 </details>
 
 <details>
   <summary><code>restart-daemon</code></summary>
-
   <br/>
 
   Restarts the Docker service on the host machine with:
@@ -213,9 +195,7 @@ cd cli-lite && npm start
   ```bash
   systemctl restart docker
   ```
-
   <br/>
-  
 </details>
 
 
@@ -226,18 +206,15 @@ cd cli-lite && npm start
 
 <details>
   <summary><code>view-config</code></summary>
-
   <br/>
 
   Displays the data stored in the `config.json` file.
 
   <br/>
-  
 </details>
 
 <details>
   <summary><code>update-config-*</code></summary>
-
   <br/>
 
   Updates the mutable properties in the `config.json` file one at a time. The following properties are mutable and can be changed by this action:
@@ -248,7 +225,6 @@ cd cli-lite && npm start
   - `TUNNEL_TOKEN`
 
   <br/>
-  
 </details>
 
 
@@ -259,7 +235,6 @@ cd cli-lite && npm start
 
 <details>
   <summary><code>update-cli</code></summary>
-
   <br/>
 
   Downloads the latest version of `cli-lite`, installs its dependencies, and compiles it.
@@ -275,9 +250,7 @@ cd cli-lite && npm start
 
   npm run build
   ```
-
   <br/>
-  
 </details>
 
 
@@ -288,7 +261,6 @@ cd cli-lite && npm start
 
 <details>
   <summary><code>psql</code></summary>
-
   <br/>
 
   Starts the terminal-based front-end to PostgreSQL.
@@ -300,9 +272,7 @@ cd cli-lite && npm start
   ```bash
   docker compose exec -it postgres psql -U postgres
   ```
-
   <br/>
-  
 </details>
 
 

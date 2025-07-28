@@ -17,7 +17,7 @@ import {
  */
 type IConfigService = {
   // properties
-  config: IConfigFile,
+  config: IConfigFile;
 
   // utils
   requiresInitialization: () => boolean;
@@ -36,17 +36,9 @@ type IConfigService = {
   initialize: () => Promise<void>;
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                             TYPES                                              *
  ************************************************************************************************ */
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

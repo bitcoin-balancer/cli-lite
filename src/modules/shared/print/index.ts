@@ -46,12 +46,7 @@ const __printData = (data: IPrintableData): void => {
  * Prints custom data to the console based on its type.
  * @param config
  */
-const print = ({
-  title,
-  data,
-  marginTop = 0,
-  marginBottom = 0,
-}: IPrintConfig): void => {
+const print = ({ title, data, marginTop = 0, marginBottom = 0 }: IPrintConfig): void => {
   __printMargin(marginTop);
 
   __printTitle(title);
@@ -60,10 +55,6 @@ const print = ({
 
   __printMargin(marginBottom);
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                          HEADER UTILS                                          *
@@ -115,16 +106,14 @@ const __buildContainerStateString = (name: IContainerName, state: IContainerStat
  * @param states
  * @returns string
  */
-const __buildContainerStatesString = (states: IContainerStates) => (
+const __buildContainerStatesString = (states: IContainerStates) =>
   Object.entries(states).reduce(
-    (accum: string, [name, state]) => (
+    (accum: string, [name, state]) =>
       accum.length > 0
         ? `${accum}\n${__buildContainerStateString(name as IContainerName, state)}`
-        : __buildContainerStateString(name as IContainerName, state)
-    ),
+        : __buildContainerStateString(name as IContainerName, state),
     '',
-  )
-);
+  );
 
 /**
  * Prints the Docker Process' state to the console.
@@ -163,10 +152,6 @@ const printHeader = (
   __printDockerProcessState(dockerProcess);
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                          MISC UTILS                                            *
  ************************************************************************************************ */
@@ -178,10 +163,6 @@ const printHeader = (
 const printActionResult = (action: string): void => {
   console.log(`\n\nThe action '${action}' was executed successfully!`);
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

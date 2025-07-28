@@ -11,13 +11,7 @@ import { randomBytes } from 'node:crypto';
  */
 const generateRandomBytes = (size: number): string => randomBytes(size).toString('base64url');
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  generateRandomBytes,
-};
+export { generateRandomBytes };

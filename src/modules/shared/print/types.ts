@@ -1,5 +1,3 @@
-
-
 /* ************************************************************************************************
  *                                             TYPES                                              *
  ************************************************************************************************ */
@@ -8,11 +6,12 @@
  * Printable Data
  * The types of data that can be printed.
  */
-type IPrintableData = string
-| number
-| boolean
-| Record<string, unknown>
-| Array<string | number | boolean | Record<string, unknown>>;
+type IPrintableData =
+  | string
+  | number
+  | boolean
+  | Record<string, unknown>
+  | Array<string | number | boolean | Record<string, unknown>>;
 
 /**
  * Print Config
@@ -33,15 +32,7 @@ type IProgressPrinter = {
   step: () => void;
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export type {
-  IPrintableData,
-  IPrintConfig,
-  IProgressPrinter,
-};
+export type { IPrintableData, IPrintConfig, IProgressPrinter };

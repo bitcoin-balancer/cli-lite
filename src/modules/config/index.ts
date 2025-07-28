@@ -27,10 +27,6 @@ const configServiceFactory = (): IConfigService => {
   // object containing the configuration that will be used to run Balancer
   let __config: IConfigFile | undefined;
 
-
-
-
-
   /* **********************************************************************************************
    *                                             UTILS                                            *
    ********************************************************************************************** */
@@ -40,10 +36,6 @@ const configServiceFactory = (): IConfigService => {
    * @returns boolean
    */
   const requiresInitialization = (): boolean => __config === undefined;
-
-
-
-
 
   /* **********************************************************************************************
    *                                       CONFIG MANAGEMENT                                      *
@@ -62,10 +54,11 @@ const configServiceFactory = (): IConfigService => {
    * Initializes the configuration with the provided values.
    * @param config
    */
-  const initializeConfig = (config: IConfigFileMutable): void => __update({
-    ...config,
-    ...buildImmutableConfig(),
-  });
+  const initializeConfig = (config: IConfigFileMutable): void =>
+    __update({
+      ...config,
+      ...buildImmutableConfig(),
+    });
 
   /**
    * Updates the GUI_URL in the configuration file.
@@ -77,10 +70,11 @@ const configServiceFactory = (): IConfigService => {
    * Updates the TELEGRAM in the configuration file.
    * @param newConfig
    */
-  const updateTelegram = (newConfig: ITelegramConfig): void => __update({
-    ...__config!,
-    TELEGRAM: newConfig,
-  });
+  const updateTelegram = (newConfig: ITelegramConfig): void =>
+    __update({
+      ...__config!,
+      TELEGRAM: newConfig,
+    });
 
   /**
    * Updates the EXCHANGE_CONFIGURATION and EXCHANGE_CREDENTIALS in the configuration file.
@@ -90,24 +84,22 @@ const configServiceFactory = (): IConfigService => {
   const updateExchangeConfigurationAndCredentials = (
     newConfig: IExchangeConfiguration,
     newCredentials: IExchangeCredentials,
-  ): void => __update({
-    ...__config!,
-    EXCHANGE_CONFIGURATION: newConfig,
-    EXCHANGE_CREDENTIALS: { [newConfig.trading]: newCredentials },
-  });
-
+  ): void =>
+    __update({
+      ...__config!,
+      EXCHANGE_CONFIGURATION: newConfig,
+      EXCHANGE_CREDENTIALS: { [newConfig.trading]: newCredentials },
+    });
 
   /**
    * Updates the TUNNEL_TOKEN in the configuration file.
    * @param newToken
    */
-  const updateTunnelToken = (newToken: string): void => __update({
-    ...__config!,
-    TUNNEL_TOKEN: newToken,
-  });
-
-
-
+  const updateTunnelToken = (newToken: string): void =>
+    __update({
+      ...__config!,
+      TUNNEL_TOKEN: newToken,
+    });
 
   /* **********************************************************************************************
    *                                          INITIALIZER                                         *
@@ -123,10 +115,6 @@ const configServiceFactory = (): IConfigService => {
 
     // ...
   };
-
-
-
-
 
   /* **********************************************************************************************
    *                                         MODULE BUILD                                         *
@@ -152,22 +140,12 @@ const configServiceFactory = (): IConfigService => {
   });
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                        GLOBAL INSTANCE                                         *
  ************************************************************************************************ */
 const ConfigService = configServiceFactory();
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  ConfigService,
-};
+export { ConfigService };

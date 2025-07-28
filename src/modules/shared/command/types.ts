@@ -1,5 +1,3 @@
-
-
 /* ************************************************************************************************
  *                                             TYPES                                              *
  ************************************************************************************************ */
@@ -23,18 +21,10 @@ type IExecutionReturnData<T extends IExecutionMode> = T extends 'pipe' ? string 
  */
 type IExectutionOptions = {
   // the standard input-output header that will be used in the execution
-  stdio: IExecutionMode
+  stdio: IExecutionMode;
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export type {
-  IExecutionMode,
-  IExecutionReturnData,
-  IExectutionOptions,
-};
+export type { IExecutionMode, IExecutionReturnData, IExectutionOptions };

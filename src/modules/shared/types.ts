@@ -27,10 +27,6 @@ const PackageFileSchema = z.object({
 });
 type IPackageFile = z.infer<typeof PackageFileSchema>;
 
-
-
-
-
 /* ************************************************************************************************
  *                                          CONFIG FILE                                           *
  ************************************************************************************************ */
@@ -103,10 +99,7 @@ const ConfigFileSchema = z.object({
     coins: z.string(),
     trading: z.string(),
   }),
-  EXCHANGE_CREDENTIALS: z.record(
-    z.string(),
-    ExchangeCredentialsSchema,
-  ),
+  EXCHANGE_CREDENTIALS: z.record(z.string(), ExchangeCredentialsSchema),
   TUNNEL_TOKEN: z.string(),
 });
 type IConfigFile = z.infer<typeof ConfigFileSchema>;
@@ -115,22 +108,30 @@ type IConfigFile = z.infer<typeof ConfigFileSchema>;
  * Config File Mutable/Immutable
  * Utility types to separate what can and cannot be modified.
  */
-type IConfigFileMutable = Pick<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION'
-| 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
-type IConfigFileImmutable = Omit<IConfigFile, 'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION'
-| 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'>;
+type IConfigFileMutable = Pick<
+  IConfigFile,
+  'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'
+>;
+type IConfigFileImmutable = Omit<
+  IConfigFile,
+  'GUI_URL' | 'TELEGRAM' | 'EXCHANGE_CONFIGURATION' | 'EXCHANGE_CREDENTIALS' | 'TUNNEL_TOKEN'
+>;
 
 /**
  * Config Secret Key
  * Utility type to identify which properties are secret and should not be included in the .env file.
  */
-type IConfigSecretKey = 'ALTCHA_SECRET' | 'COOKIE_SECRET' | 'ENCRYPTING_SECRET'
-| 'EXCHANGE_CREDENTIALS' | 'HASHING_SECRET' | 'JWT_SECRET' | 'POSTGRES_PASSWORD_FILE'
-| 'ROOT_ACCOUNT' | 'TELEGRAM' | 'TUNNEL_TOKEN';
-
-
-
-
+type IConfigSecretKey =
+  | 'ALTCHA_SECRET'
+  | 'COOKIE_SECRET'
+  | 'ENCRYPTING_SECRET'
+  | 'EXCHANGE_CREDENTIALS'
+  | 'HASHING_SECRET'
+  | 'JWT_SECRET'
+  | 'POSTGRES_PASSWORD_FILE'
+  | 'ROOT_ACCOUNT'
+  | 'TELEGRAM'
+  | 'TUNNEL_TOKEN';
 
 /* ************************************************************************************************
  *                                            DOCKER                                              *
@@ -151,12 +152,12 @@ type IContainerState = {
   running: boolean;
 } & (
   | {
-    running: true;
-  }
+      running: true;
+    }
   | {
-    running: false;
-    logs: string;
-  }
+      running: false;
+      logs: string;
+    }
 );
 type IContainerStates = {
   [key in IContainerName]: IContainerState;
@@ -176,10 +177,6 @@ type IDockerProcess = {
   // the containers' state
   containers: IContainerStates;
 };
-
-
-
-
 
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *

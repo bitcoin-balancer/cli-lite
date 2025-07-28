@@ -10,12 +10,8 @@ import { IConfigSecretKey } from '../types.js';
  * @param value
  * @returns string
  */
-const stringifyValue = (value: unknown): string => (
-  isObjectValid(value, true) || isArrayValid(value, true)
-    ? JSON.stringify(value)
-    : String(value)
-);
-
+const stringifyValue = (value: unknown): string =>
+  isObjectValid(value, true) || isArrayValid(value, true) ? JSON.stringify(value) : String(value);
 
 /**
  * Builds the path for a secret that will be included in the .env file.
@@ -24,14 +20,7 @@ const stringifyValue = (value: unknown): string => (
  */
 const buildSecretPath = (key: IConfigSecretKey): string => `${key}=/run/secrets/${key}`;
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  stringifyValue,
-  buildSecretPath,
-};
+export { stringifyValue, buildSecretPath };

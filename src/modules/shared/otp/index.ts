@@ -17,14 +17,7 @@ const generateOTPSecret = (): string => authenticator.generateSecret();
  */
 const generateOTPToken = (secret: string): string => authenticator.generate(secret);
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  generateOTPSecret,
-  generateOTPToken,
-};
+export { generateOTPSecret, generateOTPToken };

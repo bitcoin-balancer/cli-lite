@@ -14,14 +14,7 @@ import { CONTAINER_NAMES } from '../shared/constants.js';
 import { readPackageFile } from '../shared/fs/index.js';
 import { generateEnvironmentAssets } from '../shared/environment-assets/index.js';
 import { generateComposeFile } from '../shared/compose-file/index.js';
-import {
-  landscapeSysinfo,
-  git,
-  npm,
-  docker,
-  dockerCompose,
-  systemctl,
-} from './utils.js';
+import { landscapeSysinfo, git, npm, docker, dockerCompose, systemctl } from './utils.js';
 import { IContainerStateTuple, IHostService } from './types.js';
 
 /* ************************************************************************************************
@@ -49,10 +42,6 @@ const hostServiceFactory = (): IHostService => {
 
   // the state of the docker process
   let __dockerProcess: IDockerProcess;
-
-
-
-
 
   /* **********************************************************************************************
    *                                         MIST RETRIEVERS                                      *
@@ -84,10 +73,6 @@ const hostServiceFactory = (): IHostService => {
     }
   };
 
-
-
-
-
   /* **********************************************************************************************
    *                                         CLI MANAGEMENT                                       *
    ********************************************************************************************** */
@@ -110,10 +95,6 @@ const hostServiceFactory = (): IHostService => {
    */
   const buildCLI = (): Promise<void> => npm('run build', true);
 
-
-
-
-
   /* **********************************************************************************************
    *                                            DOCKER                                            *
    ********************************************************************************************** */
@@ -129,7 +110,10 @@ const hostServiceFactory = (): IHostService => {
   const __getDockerProcessStatusRows = async (): Promise<string[]> => {
     const ps = await docker('ps', false);
     if (ps && ps.length > 0) {
-      return ps.split('\n').slice(1).filter((row) => row.length > 0);
+      return ps
+        .split('\n')
+        .slice(1)
+        .filter((row) => row.length > 0);
     }
     return [];
   };
@@ -160,11 +144,10 @@ const hostServiceFactory = (): IHostService => {
    * @param name
    * @returns Promise<void>
    */
-  const susbcribeToLogs = (name?: IContainerName): Promise<void> => (
+  const susbcribeToLogs = (name?: IContainerName): Promise<void> =>
     typeof name === 'string'
       ? dockerCompose(`logs ${name} -f`, true)
-      : dockerCompose('logs -f', true)
-  );
+      : dockerCompose('logs -f', true);
 
   /**
    * Maintenance
@@ -230,10 +213,6 @@ const hostServiceFactory = (): IHostService => {
    */
   const psql = (): Promise<void> => dockerCompose('exec -it postgres psql -U postgres', true);
 
-
-
-
-
   /* **********************************************************************************************
    *                                           INITIALIZER                                        *
    ********************************************************************************************** */
@@ -244,9 +223,8 @@ const hostServiceFactory = (): IHostService => {
    * @param statusRows
    * @returns boolean
    */
-  const __isContainerRunning = (name: IContainerName, statusRows: string[]): boolean => (
-    statusRows.some((row) => row.includes(`balancer-${name}`) && row.includes('Up'))
-  );
+  const __isContainerRunning = (name: IContainerName, statusRows: string[]): boolean =>
+    statusRows.some((row) => row.includes(`balancer-${name}`) && row.includes('Up'));
 
   /**
    * Calculates the state of a container based on the status rows. If a container if not running,
@@ -258,11 +236,10 @@ const hostServiceFactory = (): IHostService => {
   const __calculateContainerState = async (
     name: IContainerName,
     statusRows: string[],
-  ): Promise<IContainerState> => (
+  ): Promise<IContainerState> =>
     __isContainerRunning(name, statusRows)
       ? { running: true }
-      : { running: false, logs: await __getLatestContainerLogs(name) }
-  );
+      : { running: false, logs: await __getLatestContainerLogs(name) };
 
   /**
    * Calculates the state for every container.
@@ -316,10 +293,6 @@ const hostServiceFactory = (): IHostService => {
     __dockerProcess = await __calculateDockerProcessState();
   };
 
-
-
-
-
   /* **********************************************************************************************
    *                                         MODULE BUILD                                         *
    ********************************************************************************************** */
@@ -357,22 +330,12 @@ const hostServiceFactory = (): IHostService => {
   });
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                        GLOBAL INSTANCE                                         *
  ************************************************************************************************ */
 const HostService = hostServiceFactory();
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  HostService,
-};
+export { HostService };

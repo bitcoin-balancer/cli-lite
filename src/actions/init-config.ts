@@ -13,7 +13,10 @@ import { ConfigService } from '../modules/config/index.js';
  * Prompts the user to initialize the configuration file.
  */
 export default async () => {
-  print({ title: 'CONFIGURATION', data: 'Initialize the settings that will be used by ₿alancer\n' });
+  print({
+    title: 'CONFIGURATION',
+    data: 'Initialize the settings that will be used by ₿alancer\n',
+  });
   const progress = progressPrinterFactory('init-config', [
     'GUI_URL',
     'TELEGRAM',

@@ -35,9 +35,8 @@ const getConfigFile = (): IConfigFile | undefined => {
  * @param max
  * @returns string
  */
-const __generatePassword = (min: number, max: number): string => (
-  generatePassword(generateRandomInteger(min, max), true, true, true, true)
-);
+const __generatePassword = (min: number, max: number): string =>
+  generatePassword(generateRandomInteger(min, max), true, true, true, true);
 
 /**
  * Generates a random sequence of characters with a random length.
@@ -45,9 +44,8 @@ const __generatePassword = (min: number, max: number): string => (
  * @param max
  * @returns string
  */
-const __generateRandomBytes = (min: number, max: number): string => (
-  generateRandomBytes(generateRandomInteger(min, max))
-);
+const __generateRandomBytes = (min: number, max: number): string =>
+  generateRandomBytes(generateRandomInteger(min, max));
 
 /**
  * Builds the immutable part of the configuration file.
@@ -75,14 +73,7 @@ const buildImmutableConfig = (): IConfigFileImmutable => ({
   COOKIE_SECRET: __generatePassword(80, 140),
 });
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  getConfigFile,
-  buildImmutableConfig,
-};
+export { getConfigFile, buildImmutableConfig };

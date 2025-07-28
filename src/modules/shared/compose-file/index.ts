@@ -45,13 +45,7 @@ const generateComposeFile = (): void => {
   writeComposeFile(_);
 };
 
-
-
-
-
 /* ************************************************************************************************
  *                                         MODULE EXPORTS                                         *
  ************************************************************************************************ */
-export {
-  generateComposeFile,
-};
+export { generateComposeFile };
